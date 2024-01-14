@@ -6,7 +6,7 @@ public interface IMungRange
     Cursor Start { get; }
     Cursor End { get; }
 
-    IEnumerable<ICoCell> Cells { get; }
+    IEnumerable<ICell> Cells { get; }
     void Merge();
 }
 
@@ -26,7 +26,7 @@ public class MungRange : IMungRange
         _end = end;
     }
 
-    public IEnumerable<ICoCell> Cells
+    public IEnumerable<ICell> Cells
     {
         get
         {

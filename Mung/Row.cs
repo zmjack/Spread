@@ -7,14 +7,14 @@ public interface ICoRow
 {
     int Index { get; }
     string Name { get; }
-    ICoCell this[int index] { get; }
-    IEnumerable<ICoCell> Cells { get; }
+    ICell this[int index] { get; }
+    IEnumerable<ICell> Cells { get; }
 }
 
 [DebuggerDisplay("{Name}")]
-public class Row : ICoRow, IEnumerable<ICoCell>
+public class Row : ICoRow, IEnumerable<ICell>
 {
-    private readonly Dictionary<int, ICoCell> _innerCells = [];
+    private readonly Dictionary<int, ICell> _innerCells = [];
 
     internal readonly MungSheet _sheet;
     private readonly int _rowIndex;
@@ -28,7 +28,7 @@ public class Row : ICoRow, IEnumerable<ICoCell>
         _rowIndex = index;
     }
 
-    public IEnumerable<ICoCell> Cells
+    public IEnumerable<ICell> Cells
     {
         get
         {
@@ -40,11 +40,11 @@ public class Row : ICoRow, IEnumerable<ICoCell>
         }
     }
 
-    public ICoCell this[int index]
+    public ICell this[int index]
     {
         get
         {
-            if (_innerCells.TryGetValue(index, out ICoCell? value)) return value;
+            if (_innerCells.TryGetValue(index, out ICell? value)) return value;
             else
             {
                 var cell = new Cell(this, index);
@@ -55,7 +55,7 @@ public class Row : ICoRow, IEnumerable<ICoCell>
         }
     }
 
-    public IEnumerator<ICoCell> GetEnumerator()
+    public IEnumerator<ICell> GetEnumerator()
     {
         return Cells.GetEnumerator();
     }

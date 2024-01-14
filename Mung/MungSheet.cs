@@ -9,7 +9,7 @@ public interface IMungSheet
     int ColumnLength { get; }
     IEnumerable<ICoRow> Rows { get; }
 
-    ICoCell this[Cursor cursor] { get; }
+    ICell this[Cursor cursor] { get; }
     IMungRange this[Cursor start, Cursor end] { get; }
 
     void Merge(Cursor start, Cursor end);
@@ -63,7 +63,7 @@ public class MungSheet : IMungSheet, IEnumerable
     public RowAgent Rows => _rowSelector;
     IEnumerable<ICoRow> IMungSheet.Rows => _rows.Values;
 
-    public IEnumerable<ICoCell> GetCells()
+    public IEnumerable<ICell> GetCells()
     {
         foreach (var row in _rows.Values)
         {
@@ -76,7 +76,7 @@ public class MungSheet : IMungSheet, IEnumerable
         this[(RowLength, 0)].Grid = grid;
     }
 
-    public ICoCell this[Cursor cursor] => Rows[cursor.Row][cursor.Col];
+    public ICell this[Cursor cursor] => Rows[cursor.Row][cursor.Col];
     public IMungRange this[Cursor start, Cursor end] => new MungRange(this, start, end);
 
     public void Merge(Cursor start, Cursor end)

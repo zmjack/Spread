@@ -86,18 +86,18 @@ public class HtmlTable
     {
         return props.Where(prop => !prop.IsNullOrWhiteSpace()).Select(prop => $" {prop}").Join("");
     }
-    private static string RowSpanProp(ICoCell cell)
+    private static string RowSpanProp(ICell cell)
     {
         var span = cell.RowSpan;
         return span > 1 ? $@"rowspan=""{span}""" : "";
     }
-    private static string ColSpanProp(ICoCell cell)
+    private static string ColSpanProp(ICell cell)
     {
         var span = cell.ColSpan;
         return span > 1 ? $@"colspan=""{span}""" : "";
     }
 
-    private static string StyleProp(ICoCell cell)
+    private static string StyleProp(ICell cell)
     {
         if (cell.Ignored) return "";
 

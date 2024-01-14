@@ -132,7 +132,7 @@ internal class GridRender
             {
                 var value = child.Value;
 
-                sheet[cursor].CoValue = value;
+                sheet[cursor].MungValue = value;
                 sheet[cursor].Scope = scope;
                 sheet[cursor].Style = style;
 
@@ -219,7 +219,7 @@ internal class GridRender
             {
                 var value = child.Value;
 
-                sheet[cursor].CoValue = value;
+                sheet[cursor].MungValue = value;
                 sheet[cursor].Scope = scope;
                 sheet[cursor].Style = style;
 

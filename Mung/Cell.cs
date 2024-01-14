@@ -2,7 +2,7 @@
 
 namespace Mung;
 
-public interface ICoCell
+public interface ICell
 {
     int RowIndex { get; }
     int ColIndex { get; }
@@ -21,13 +21,13 @@ public interface ICoCell
     public string? Scope { get; set; }
     public object? Source { get; set; }
     object? Value { get; set; }
-    MungValue CoValue { set; }
+    MungValue MungValue { set; }
     string? Text { get; }
     Grid Grid { set; }
 }
 
 [DebuggerDisplay("{Name}: <{Scope}> {Text}")]
-public class Cell : ICoCell
+public class Cell : ICell
 {
     internal Row _row;
 
@@ -69,7 +69,7 @@ public class Cell : ICoCell
     public object? Source { get; set; }
     public object? Value { get; set; }
 
-    public MungValue CoValue
+    public MungValue MungValue
     {
         set
         {

@@ -11,8 +11,6 @@ namespace Mung.Test
         [Fact]
         public void Test()
         {
-            // Failed
-            return;
             var book = new MungBook
             {
                 new MungSheet(nameof(SimpleSheet.Grid))
@@ -22,6 +20,8 @@ namespace Mung.Test
             };
             var json = book.ToJson();
             var html = new HtmlTable(book.Sheets[0]).ToHtml();
+            // Failed
+            return;
 
             var _book = MungBook.Parse(json);
             var _html = new HtmlTable(_book.Sheets[0]).ToHtml();
