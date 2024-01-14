@@ -4,6 +4,7 @@ namespace Mung;
 
 public interface IMungSheet
 {
+    object? Source { get; }
     string Name { get; }
     int RowLength { get; }
     int ColumnLength { get; }
@@ -53,11 +54,16 @@ public class MungSheet : IMungSheet, IEnumerable
 
     private readonly RowAgent _rowSelector;
     public string Name { get; }
+    public object? Source { get; set; }
 
     public MungSheet(string name)
     {
         Name = name;
         _rowSelector = new RowAgent(this);
+    }
+    public MungSheet(string name, object? source) : this(name)
+    {
+        Source = source;
     }
 
     public RowAgent Rows => _rowSelector;

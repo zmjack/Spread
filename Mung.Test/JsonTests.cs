@@ -9,7 +9,7 @@ public class JsonTests
     {
         IMungBook book = new MungBook
         {
-            new MungSheet("simple")
+            new MungSheet("simple", "123")
             {
                 SimpleSheet.Grid,
             }
