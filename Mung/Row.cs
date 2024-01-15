@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Mung;
 
-public interface ICoRow
+public interface IMungRow
 {
     int Index { get; }
     string Name { get; }
@@ -12,7 +12,7 @@ public interface ICoRow
 }
 
 [DebuggerDisplay("{Name}")]
-public class Row : ICoRow, IEnumerable<ICell>
+public class Row : IMungRow, IEnumerable<ICell>
 {
     private readonly Dictionary<int, ICell> _innerCells = [];
 

@@ -8,7 +8,7 @@ public interface IMungSheet
     string Name { get; }
     int RowLength { get; }
     int ColumnLength { get; }
-    IEnumerable<ICoRow> Rows { get; }
+    IEnumerable<IMungRow> Rows { get; }
 
     ICell this[Cursor cursor] { get; }
     IMungRange this[Cursor start, Cursor end] { get; }
@@ -18,9 +18,9 @@ public interface IMungSheet
 
 public class MungSheet : IMungSheet, IEnumerable
 {
-    public class RowAgent(MungSheet sheet) : IEnumerable<ICoRow>
+    public class RowAgent(MungSheet sheet) : IEnumerable<IMungRow>
     {
-        public ICoRow this[int index]
+        public IMungRow this[int index]
         {
             get
             {
@@ -35,7 +35,7 @@ public class MungSheet : IMungSheet, IEnumerable
             }
         }
 
-        public IEnumerator<ICoRow> GetEnumerator()
+        public IEnumerator<IMungRow> GetEnumerator()
         {
             return sheet._rows.Values.GetEnumerator();
         }
@@ -67,7 +67,7 @@ public class MungSheet : IMungSheet, IEnumerable
     }
 
     public RowAgent Rows => _rowSelector;
-    IEnumerable<ICoRow> IMungSheet.Rows => _rows.Values;
+    IEnumerable<IMungRow> IMungSheet.Rows => _rows.Values;
 
     public IEnumerable<ICell> GetCells()
     {
@@ -84,6 +84,11 @@ public class MungSheet : IMungSheet, IEnumerable
 
     public ICell this[Cursor cursor] => Rows[cursor.Row][cursor.Col];
     public IMungRange this[Cursor start, Cursor end] => new MungRange(this, start, end);
+
+    public Grid this[int row, int col]
+    {
+        set => this[(row, col)].Grid = value;
+    }
 
     public void Merge(Cursor start, Cursor end)
     {
