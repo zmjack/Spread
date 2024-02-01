@@ -13,7 +13,7 @@ public interface IMungBook
 }
 
 [EditorBrowsable(EditorBrowsableState.Never)]
-public static class ISpreadsheetExtensions
+public static class IMungBookExtensions
 {
     public static string ToJson(this IMungBook @this, JsonSerializerOptions? options = null)
     {

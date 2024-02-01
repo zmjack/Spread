@@ -3,15 +3,9 @@
 namespace Mung;
 
 [DebuggerDisplay("{Value}")]
-public struct MungValue : IRenderUnit
+public struct MungValue(object? value) : IRenderUnit
 {
-    public MungValue(object? value)
-    {
-        Value = value;
-    }
-
     public object? Source { get; set; }
-
     public bool AutoSpan { get; set; } = true;
 
     public (int RowSpan, int ColSpan) Span
@@ -48,6 +42,6 @@ public struct MungValue : IRenderUnit
         }
     }
 
-    public object? Value { get; }
+    public object? Value { get; } = value;
     public string? Comment { get; set; }
 }

@@ -20,6 +20,7 @@ public class HtmlTable
     {
         ["border-collapse"] = "collapse",
         ["word-break"] = "keep-all",
+        ["white-space:nowrap"] = "nowrap",
     };
 
     public HtmlTable(MungSheet table, string @class = "table")
