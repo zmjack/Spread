@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Mung.Form;
+using NStandard;
+using System.Collections;
 
 namespace Mung;
 
@@ -53,9 +55,12 @@ public abstract class Grid : IRenderUnit, IEnumerable<object>
     {
         _objectList.Add(value);
     }
-    private void Add(IEnumerable<Grid> value)
+    private void Add(IMungFormColumn formColumn)
     {
-        _objectList.AddRange(value);
+        _objectList.Add(new Hori(":input")
+        {
+            new MungValue(formColumn)
+        });
     }
     private void Add(IEnumerable enumerable)
     {
@@ -69,18 +74,9 @@ public abstract class Grid : IRenderUnit, IEnumerable<object>
             while (enumerator.MoveNext())
             {
                 var current = enumerator.Current;
-                if (current is Grid grid)
-                {
-                    Add(grid);
-                }
-                else if (current is MungValue value)
-                {
-                    Add(value);
-                }
-                else
-                {
-                    Add(new MungValue(current));
-                }
+                if (current is null) continue;
+
+                Add(current);
             }
         }
     }
@@ -93,6 +89,10 @@ public abstract class Grid : IRenderUnit, IEnumerable<object>
         else if (obj is MungValue value)
         {
             Add(value);
+        }
+        else if (obj is IMungFormColumn column)
+        {
+            Add(column);
         }
         else if (obj is not string && obj is IEnumerable enumerable)
         {

@@ -8,7 +8,7 @@
     <Authors>zmjack</Authors>
     <Company>linqsharp.net</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.3</Version>
+    <Version>0.0.4-alpha31</Version>
     <Description>Smart spreadsheet creation library.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/zmjack/Mung</RepositoryUrl>
@@ -38,6 +38,25 @@
 
   <ItemGroup>
     <PackageReference Include="NStandard" Version="0.53.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Form\MungFormHelper.Input.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MungFormHelper.Input.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Form\MungFormHelper.Input.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MungFormHelper.Input.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>
