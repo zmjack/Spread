@@ -156,7 +156,7 @@ public partial class MungFormHelper<TEntity>(TEntity source)
         };
     }
 
-    public MungFormTable Table<T>(Expression<Func<TEntity, IEnumerable<T>>> selector, Func<MungFormHelper<T>, IMungFormColumn[]> columnSelector, MungFormTableOption? option)
+    public MungFormTable Table<T>(Expression<Func<TEntity, IEnumerable<T>>> selector, Func<MungFormHelper<T>, IMungFormColumn[]> columnSelector, MungFormTableOption option = MungFormTableOption.None)
     {
         var path = GetPath(selector);
         var dataIndex = GetDataIndex(path);
@@ -177,6 +177,7 @@ public partial class MungFormHelper<TEntity>(TEntity source)
             Label = label,
             Columns = columns,
             ColumnOptions = columnOptions,
+            Option = option,
         };
     }
 
