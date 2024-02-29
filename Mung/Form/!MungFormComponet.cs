@@ -68,6 +68,12 @@ public class MungFormImage : IMungFormColumn
     }
 }
 
+public class MungFormTableOption
+{
+    public bool Addible { get; set; }
+    public bool Removable { get; set; }
+}
+
 public class MungFormTable : IMungFormColumn
 {
     /// <inheritdoc cref="IMungFormColumn.Type" />
@@ -81,6 +87,8 @@ public class MungFormTable : IMungFormColumn
 
     /// <inheritdoc cref="IMungFormColumn.Rule" />
     public MungFormRule? Rule { get; set; }
+
+    public MungFormTableOption? Option { get; set; }
 
     public required IMungFormColumn[] Columns { get; set; }
 

@@ -1,5 +1,8 @@
-﻿namespace Mung.Form;
+﻿using NStandard.Text.Json;
 
+namespace Mung.Form;
+
+[JsonImplConverter<IMungFormColumn>]
 public interface IMungFormColumn
 {
     /// <summary>

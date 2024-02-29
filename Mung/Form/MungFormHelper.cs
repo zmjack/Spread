@@ -101,7 +101,8 @@ public partial class MungFormHelper<TEntity>(TEntity source)
 
     public MungFormValue Hide<T>(Expression<Func<TEntity, T>> selector) => InnerValue(selector, UIComponent.Hide, null);
     public MungFormValue Text(Expression<Func<TEntity, string>> selector, MungFormRule? rule = null) => InnerValue(selector, UIComponent.Text, rule);
-    public MungFormImage Image(Expression<Func<TEntity, string>> selector, string url, MungFormRule? rule = null)
+
+    public MungFormImage Image<T>(Expression<Func<TEntity, T>> selector, string url, MungFormRule? rule = null)
     {
         rule ??= GetDefaultRule(selector);
 
@@ -155,7 +156,7 @@ public partial class MungFormHelper<TEntity>(TEntity source)
         };
     }
 
-    public MungFormTable Table<T>(Expression<Func<TEntity, IEnumerable<T>>> selector, Func<MungFormHelper<T>, IMungFormColumn[]> columnSelector)
+    public MungFormTable Table<T>(Expression<Func<TEntity, IEnumerable<T>>> selector, Func<MungFormHelper<T>, IMungFormColumn[]> columnSelector, MungFormTableOption? option)
     {
         var path = GetPath(selector);
         var dataIndex = GetDataIndex(path);
