@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Mung.Test\!SimpleSheet.cs" Link="!SimpleSheet.cs" />
+    <Compile Include="..\Spread.Test\!SimpleSheet.cs" Link="!SimpleSheet.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mung\Mung.csproj" />
+    <ProjectReference Include="..\Spread\Spread.csproj" />
   </ItemGroup>
 
 </Project>

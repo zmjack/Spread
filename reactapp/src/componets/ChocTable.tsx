@@ -3,15 +3,15 @@ import React, { ReactNode, useEffect, useImperativeHandle, useState } from 'reac
 
 export default function ChocTable(props: {
   ref?: React.MutableRefObject<any>,
-  book?: Mung.IChocBook,
-  sheetsRender?: (sheets: Mung.IChocSheet[]) => React.ReactNode,
-  scopes?: Record<string, (cell: Mung.IChocCell) => ReactNode>
+  book?: Spread.IChocBook,
+  sheetsRender?: (sheets: Spread.IChocSheet[]) => React.ReactNode,
+  scopes?: Record<string, (cell: Spread.IChocCell) => ReactNode>
 }) {
   const [sheet, setSheet] = useState(null);
 
   useImperativeHandle(props.ref, () => {
     // eslint-disable-next-line no-unused-labels
-    selectSheet: (sheet: Mung.IChocSheet) => {
+    selectSheet: (sheet: Spread.IChocSheet) => {
       setSheet(sheet);
     }
   });
@@ -89,7 +89,7 @@ export default function ChocTable(props: {
       <table>
         <tbody>
           {
-            sheet?.rows?.map((row: Mung.IChocRow, i: number) => {
+            sheet?.rows?.map((row: Spread.IChocRow, i: number) => {
               return (
                 <tr key={i}>
                   {

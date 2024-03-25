@@ -1,5 +1,5 @@
-﻿using Mung;
-using Mung.Test;
+﻿using Spread;
+using Spread.Test;
 using Microsoft.AspNetCore.Mvc;
 using NStandard.Text.Json;
 using System.Text.Json;
@@ -20,9 +20,9 @@ public class ChocController : Controller
     [HttpGet]
     public ContentResult Get()
     {
-        var book = new MungBook
+        var book = new SpreadBook
         {
-            new MungSheet("simple")
+            new SpreadSheet("simple")
             {
                 SimpleSheet.Grid,
             }
@@ -39,9 +39,9 @@ public class ChocController : Controller
     [HttpGet]
     public ContentResult Json()
     {
-        var book = new MungBook
+        var book = new SpreadBook
         {
-            new MungSheet("simple")
+            new SpreadSheet("simple")
             {
                 SimpleSheet.Grid,
             }
@@ -60,9 +60,9 @@ public class ChocController : Controller
     [HttpGet]
     public ContentResult Xml()
     {
-        var book = new MungBook
+        var book = new SpreadBook
         {
-            new MungSheet("simple")
+            new SpreadSheet("simple")
             {
                 SimpleSheet.Grid,
             }
