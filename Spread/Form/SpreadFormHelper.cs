@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Reflection.Emit;
+using System.Xml.Linq;
 
 namespace Spread.Form;
 
@@ -99,6 +101,18 @@ public partial class SpreadFormHelper<TEntity>(TEntity source)
         };
     }
 
+    public SpreadFormLabel Label(string content)
+    {
+        return new SpreadFormLabel
+        {
+            Type = UIComponent.Label,
+            DataIndex = default,
+            Label = default,
+            Rule = null,
+            Content = content,
+        };
+    }
+
     public SpreadFormValue Hide<T>(Expression<Func<TEntity, T>> selector) => InnerValue(selector, UIComponent.Hide, null);
     public SpreadFormValue Text(Expression<Func<TEntity, string>> selector, SpreadFormRule? rule = null) => InnerValue(selector, UIComponent.Text, rule);
 
@@ -135,24 +149,6 @@ public partial class SpreadFormHelper<TEntity>(TEntity source)
             Label = label,
             Rule = rule,
             Options = options,
-        };
-    }
-
-    public SpreadFormOption Option<T>(Expression<Func<TEntity, T>> selector, string optionsUrl, SpreadFormRule? rule = null)
-    {
-        rule ??= GetDefaultRule(selector);
-
-        var path = GetPath(selector);
-        var dataIndex = GetDataIndex(path);
-        var label = GetDisplayName(selector);
-
-        return new SpreadFormOption
-        {
-            Type = UIComponent.Option,
-            DataIndex = dataIndex,
-            Label = label,
-            Rule = rule,
-            OptionsUrl = optionsUrl,
         };
     }
 

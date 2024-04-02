@@ -2,16 +2,16 @@
 
 public class SpreadFormValue : ISpreadFormColumn
 {
-    /// <inheritdoc cref="ISpreadFormColumn.Type" />
+    /// <inheritdoc />
     public required string Type { get; set; }
 
-    /// <inheritdoc cref="ISpreadFormColumn.DataIndex" />
+    /// <inheritdoc />
     public required string DataIndex { get; set; }
 
-    /// <inheritdoc cref="ISpreadFormColumn.Label" />
+    /// <inheritdoc />
     public required string Label { get; set; }
 
-    /// <inheritdoc cref="ISpreadFormColumn.Rule" />
+    /// <inheritdoc />
     public SpreadFormRule? Rule { get; set; }
 
     public override string ToString()

@@ -3,6 +3,7 @@
 public static class UIComponent
 {
     public static string Hide => "hide";
+    public static string Label => "label";
     public static string Text => "text";
     public static string Number => "number";
     public static string Percent => "percent";
