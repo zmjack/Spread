@@ -55,6 +55,13 @@ public abstract class Grid : IRenderUnit, IEnumerable<object>
     {
         _objectList.Add(value);
     }
+    private void Add(ISpreadObject obj)
+    {
+        foreach (var value in obj.Values)
+        {
+            _objectList.Add(new SpreadValue(value));
+        }
+    }
     private void Add(ISpreadFormColumn formColumn)
     {
         _objectList.Add(new Hori(":input")
@@ -89,6 +96,10 @@ public abstract class Grid : IRenderUnit, IEnumerable<object>
         else if (obj is SpreadValue value)
         {
             Add(value);
+        }
+        else if (obj is ISpreadObject spreadObject)
+        {
+            Add(spreadObject);
         }
         else if (obj is ISpreadFormColumn column)
         {
