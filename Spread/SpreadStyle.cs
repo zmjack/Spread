@@ -46,21 +46,27 @@ public record SpreadStyle
     public bool? BorderLeft { get; set; }
     public bool? BorderRight { get; set; }
 
-    public bool Border
+    public bool? Border
     {
         get
         {
-            return BorderTop == true
-                && BorderBottom == true
-                && BorderLeft == true
-                && BorderRight == true;
+            if (BorderTop.HasValue)
+            {
+                var value = BorderTop.Value;
+                if (BorderBottom == value && BorderLeft == value && BorderRight == value)
+                {
+                    return value;
+                }
+                else return null;
+            }
+            else return null;
         }
         set
         {
-            BorderTop = true;
-            BorderBottom = true;
-            BorderLeft = true;
-            BorderRight = true;
+            BorderTop = value;
+            BorderBottom = value;
+            BorderLeft = value;
+            BorderRight = value;
         }
     }
 

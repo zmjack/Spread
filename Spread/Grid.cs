@@ -13,7 +13,7 @@ public abstract class Grid : IRenderUnit, IEnumerable<object>
     /// </summary>
     public IRenderUnit[] Children
     {
-        get => _objectList.ToArray();
+        get => [.. _objectList];
         protected set
         {
             _objectList.Clear();
