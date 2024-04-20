@@ -1,18 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Spread;
-
-public interface ISpreadObject
-{
-    public string[] Headers { get; }
-    public object[] Values { get; }
-}
+﻿namespace Spread;
 
 public static class SpreadObject
 {

@@ -12,12 +12,12 @@ public class Hori : Grid
         Scope = scope;
     }
 
-    public Hori(params SpreadStyle[] styles) : this()
+    public Hori(params ISpreadStyle[] styles) : this()
     {
         Styles = styles;
     }
 
-    public Hori(string scope, params SpreadStyle[] styles) : this()
+    public Hori(string scope, params ISpreadStyle[] styles) : this()
     {
         Scope = scope;
         Styles = styles;

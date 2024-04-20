@@ -1,31 +1,18 @@
-﻿using NStandard.Text.Json;
-using System.Collections;
+﻿using System.Collections;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Spread;
 
-public interface ISpreadSheet
+public class SpreadSheet : ISpreadSheet, IEnumerable, ISerializable
 {
-    object? Source { get; }
-    string Name { get; }
-    int RowLength { get; }
-    int ColumnLength { get; }
-    IEnumerable<ISpreadRow> Rows { get; }
-
-    ICell this[Cursor cursor] { get; }
-    ISpreadRange this[Cursor start, Cursor end] { get; }
-
-    void Merge(Cursor start, Cursor end);
-}
-
-public class SpreadSheet : ISpreadSheet, IEnumerable
-{
-    public class RowAgent(SpreadSheet sheet) : IEnumerable<ISpreadRow>
+    public class RowAgent(SpreadSheet sheet) : IEnumerable<IRow>
     {
-        public ISpreadRow this[int index]
+        public IRow this[int index]
         {
             get
             {
-                if (sheet._rows.TryGetValue(index, out Row? value)) return value;
+                if (sheet._rows.TryGetValue(index, out IRow? value)) return value;
                 else
                 {
                     var row = new Row(sheet, index);
@@ -36,7 +23,7 @@ public class SpreadSheet : ISpreadSheet, IEnumerable
             }
         }
 
-        public IEnumerator<ISpreadRow> GetEnumerator()
+        public IEnumerator<IRow> GetEnumerator()
         {
             return sheet._rows.Values.GetEnumerator();
         }
@@ -47,29 +34,31 @@ public class SpreadSheet : ISpreadSheet, IEnumerable
         }
     }
 
-    private readonly Dictionary<int, Row> _rows = [];
+    private readonly Dictionary<int, IRow> _rows = [];
     internal int _maxRowIndex = -1;
     internal int _maxColumnIndex = -1;
+
     public int RowLength => _maxRowIndex + 1;
     public int ColumnLength => _maxColumnIndex + 1;
 
     private readonly RowAgent _rowSelector;
-    public string Name { get; }
+    public string Name { get; set; }
     public object? Source { get; set; }
 
-    public SpreadSheet(string name)
+    public SpreadSheet()
+    {
+        _rowSelector = new RowAgent(this);
+    }
+    public SpreadSheet(string name) : this()
     {
         Name = name;
-        _rowSelector = new RowAgent(this);
     }
     public SpreadSheet(string name, object? source) : this(name)
     {
         Source = source;
     }
 
-    public RowAgent Rows => _rowSelector;
-    IEnumerable<ISpreadRow> ISpreadSheet.Rows => _rows.Values;
-
+    public IEnumerable<IRow> Rows => _rows.Values;
     public IEnumerable<ICell> GetCells()
     {
         foreach (var row in _rows.Values)
@@ -83,7 +72,8 @@ public class SpreadSheet : ISpreadSheet, IEnumerable
         this[(RowLength, 0)].Grid = grid;
     }
 
-    public ICell this[Cursor cursor] => Rows[cursor.Row][cursor.Col];
+    public IRow this[int row] => _rowSelector[row];
+    public ICell this[Cursor cursor] => _rowSelector[cursor.Row][cursor.Col];
     public ISpreadRange this[Cursor start, Cursor end] => new SpreadRange(this, start, end);
 
     public Grid this[int row, int col]
@@ -156,5 +146,10 @@ public class SpreadSheet : ISpreadSheet, IEnumerable
     public IEnumerator GetEnumerator()
     {
         return _rows.Values.GetEnumerator();
+    }
+
+    public void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        throw new NotImplementedException();
     }
 }

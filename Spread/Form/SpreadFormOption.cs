@@ -12,7 +12,7 @@ public class SpreadFormOption : ISpreadFormColumn
     public required string Label { get; set; }
 
     /// <inheritdoc />
-    public SpreadFormRule? Rule { get; set; }
+    public ISpreadFormRule? Rule { get; set; }
 
     public SpreadOptionPair[]? Options { get; set; }
 

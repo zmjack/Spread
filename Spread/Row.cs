@@ -3,16 +3,8 @@ using System.Diagnostics;
 
 namespace Spread;
 
-public interface ISpreadRow
-{
-    int Index { get; }
-    string Name { get; }
-    ICell this[int index] { get; }
-    IEnumerable<ICell> Cells { get; }
-}
-
 [DebuggerDisplay("{Name}")]
-public class Row : ISpreadRow, IEnumerable<ICell>
+public class Row : IRow, IEnumerable<ICell>
 {
     private readonly Dictionary<int, ICell> _innerCells = [];
 

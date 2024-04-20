@@ -7,8 +7,13 @@ namespace Spread;
 [DebuggerDisplay("{Row}, {Col}")]
 public partial struct Cursor
 {
+#if NET7_0_OR_GREATER
     [GeneratedRegex("^([A-Z]+)(\\d+)$")]
     private static partial Regex LetterRegex();
+#else
+    private static readonly Regex _letterRegex = new("^([A-Z]+)(\\d+)$");
+    private static Regex LetterRegex() => _letterRegex;
+#endif
 
     private int _row;
     public int Row
@@ -50,25 +55,30 @@ public partial struct Cursor
         Col = col;
     }
 
+#if NET7_0_OR_GREATER
     public Cursor((int row, int col) cell)
     {
         Row = cell.row;
         Col = cell.col;
     }
+#endif
 
     public static bool operator ==(Cursor left, Cursor right) => left.Row == right.Row && left.Col == right.Col;
     public static bool operator !=(Cursor left, Cursor right) => left.Row != right.Row || left.Col != right.Col;
     public override string ToString() => $"{ColumnIndex.GetName(Col)}{Row + 1}, ({Row}, {Col})";
 
     public static implicit operator Cursor(string cellName) => new(cellName);
+
+#if NET7_0_OR_GREATER
     public static implicit operator Cursor((int row, int col) cell) => new(cell);
+#endif
 
     public override int GetHashCode()
     {
         return Row << 16 | Col & 0x0000FFFF;
     }
 
-    public override bool Equals([NotNullWhen(true)] object? obj)
+    public override bool Equals(object? obj)
     {
         if (obj is Cursor other) return Row == other.Row && Col == other.Col;
         return false;

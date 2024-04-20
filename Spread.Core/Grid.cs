@@ -1,5 +1,4 @@
 ﻿using Spread.Form;
-using NStandard;
 using System.Collections;
 
 namespace Spread;
@@ -23,7 +22,7 @@ public abstract class Grid : IRenderUnit, IEnumerable<object>
 
     public string? Scope { get; set; }
 
-    public SpreadStyle[]? Styles { get; protected set; }
+    public ISpreadStyle[]? Styles { get; protected set; }
     public RenderDirection Direction { get; protected set; }
 
     private int _span;
@@ -62,6 +61,7 @@ public abstract class Grid : IRenderUnit, IEnumerable<object>
             _objectList.Add(new SpreadValue(value));
         }
     }
+#if NET7_0_OR_GREATER
     private void Add(ISpreadFormColumn formColumn)
     {
         _objectList.Add(new Hori(":input")
@@ -69,6 +69,7 @@ public abstract class Grid : IRenderUnit, IEnumerable<object>
             new SpreadValue(formColumn)
         });
     }
+#endif
     private void Add(IEnumerable enumerable)
     {
         if (enumerable is string str)
@@ -101,10 +102,12 @@ public abstract class Grid : IRenderUnit, IEnumerable<object>
         {
             Add(spreadObject);
         }
+#if NET7_0_OR_GREATER
         else if (obj is ISpreadFormColumn column)
         {
             Add(column);
         }
+#endif
         else if (obj is not string && obj is IEnumerable enumerable)
         {
             Add(enumerable);

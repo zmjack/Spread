@@ -25,7 +25,7 @@ public class SpreadFormTable : ISpreadFormColumn
     public required ISpreadFormColumn[] Columns { get; set; }
 
     /// <inheritdoc />
-    public SpreadFormRule? Rule { get; set; }
+    public ISpreadFormRule? Rule { get; set; }
 
     public Dictionary<string, SpreadOptionPair[]> ColumnOptions { get; set; }
 

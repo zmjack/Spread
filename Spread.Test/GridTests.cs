@@ -6,28 +6,20 @@ public class GridTests
 {
     internal static readonly SpreadStyle Header = new()
     {
-        HoriAlign = HoriAlign.Center,
-        VertAlign = VertAlign.Middle,
         FontFamily = "Microsoft YaHei",
         FontSize = 12,
         Bold = true,
         BackgroundColor = new RgbaColor(0xBDD7EE),
-        BorderTop = true,
-        BorderBottom = true,
-        BorderLeft = true,
-        BorderRight = true,
+        Border = true,
+        Center = true,
     };
 
     internal static readonly SpreadStyle Content = new()
     {
-        HoriAlign = HoriAlign.Center,
-        VertAlign = VertAlign.Middle,
         FontFamily = "Microsoft YaHei",
         FontSize = 12,
-        BorderTop = true,
-        BorderBottom = true,
-        BorderLeft = true,
-        BorderRight = true,
+        Border = true,
+        Center = true,
     };
 
     [Fact]
@@ -44,6 +36,9 @@ public class GridTests
                 1, 2
             }
         };
+        var ss = (ISpreadSheet)sheet;
+
+        var s2s = ss.GetType().AssemblyQualifiedName;
         var html = new HtmlTable(sheet).ToHtml();
     }
 

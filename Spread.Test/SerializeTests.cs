@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Spread.Test
@@ -15,16 +16,21 @@ namespace Spread.Test
             {
                 new SpreadSheet(nameof(SimpleSheet.Grid))
                 {
-                    SimpleSheet.Grid,
+                    //SimpleSheet.Grid,
                 }
             };
             var json = book.ToJson();
             var html = new HtmlTable(book.Sheets[0]).ToHtml();
-            // Failed
-            return;
 
             var _book = SpreadBook.Parse(json);
             var _html = new HtmlTable(_book.Sheets[0]).ToHtml();
+        }
+
+        [Fact]
+        public void Test2()
+        {
+            var json = "{}";
+            var book = JsonSerializer.Deserialize<SpreadBook>(json)!;
         }
 
     }

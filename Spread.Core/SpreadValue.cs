@@ -8,16 +8,6 @@ public struct SpreadValue(object? value) : IRenderUnit
     public object? Source { get; set; }
     public bool AutoSpan { get; set; } = true;
 
-    public (int RowSpan, int ColSpan) Span
-    {
-        get => (RowSpan, ColSpan);
-        set
-        {
-            RowSpan = value.RowSpan;
-            ColSpan = value.ColSpan;
-        }
-    }
-
     private int _rowSpan = 1;
     public int RowSpan
     {

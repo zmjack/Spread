@@ -1,6 +1,6 @@
 ﻿namespace Spread;
 
-public record SpreadStyle
+public record SpreadStyle : ISpreadStyle
 {
     public static readonly SpreadStyle Default = new();
     public static readonly SpreadStyle Table = Default with

@@ -14,7 +14,7 @@ public class SpreadFormImage : ISpreadFormColumn
     public required string Url { get; set; }
 
     /// <inheritdoc />
-    public SpreadFormRule? Rule { get; set; }
+    public ISpreadFormRule? Rule { get; set; }
 
     public override string ToString()
     {

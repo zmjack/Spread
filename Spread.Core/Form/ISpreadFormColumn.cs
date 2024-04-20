@@ -1,4 +1,5 @@
-﻿using NStandard.Text.Json;
+﻿#if NET7_0_OR_GREATER
+using NStandard.Text.Json;
 
 namespace Spread.Form;
 
@@ -11,5 +12,6 @@ public interface ISpreadFormColumn
     string Type { get; set; }
     string DataIndex { get; set; }
     string Label { get; set; }
-    SpreadFormRule? Rule { get; set; }
+    ISpreadFormRule? Rule { get; set; }
 }
+#endif

@@ -2,30 +2,6 @@
 
 namespace Spread;
 
-public interface ICell
-{
-    int RowIndex { get; }
-    int ColIndex { get; }
-    string Name { get; }
-    bool Merged { get; }
-
-    bool Ignored { get; set; }
-    int RowSpan { get; set; }
-    int RowOffset { get; set; }
-    int ColSpan { get; set; }
-    int ColOffset { get; set; }
-
-    SpreadStyle? Style { get; set; }
-    string? Comment { get; set; }
-
-    public string? Scope { get; set; }
-    public object? Source { get; set; }
-    object? Value { get; set; }
-    SpreadValue SpreadValue { set; }
-    string? Text { get; }
-    Grid Grid { set; }
-}
-
 [DebuggerDisplay("{Name}: <{Scope}> {Text}")]
 public class Cell : ICell
 {
@@ -57,8 +33,8 @@ public class Cell : ICell
     public int ColSpan { get; set; } = 1;
     public int ColOffset { get; set; }
 
-    private SpreadStyle? _style;
-    public SpreadStyle? Style
+    private ISpreadStyle? _style;
+    public ISpreadStyle? Style
     {
         get => _style ?? SpreadStyle.Default;
         set => _style = value;

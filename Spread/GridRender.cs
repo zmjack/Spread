@@ -67,7 +67,7 @@ internal class GridRender
         Render(sheet, cursor, Width, Height, _grid.Scope, _grid.Styles ?? []);
     }
 
-    private void Render(ISpreadSheet sheet, Cursor cursor, int width, int height, string? scope, SpreadStyle[] styles)
+    private void Render(ISpreadSheet sheet, Cursor cursor, int width, int height, string? scope, ISpreadStyle[] styles)
     {
         if (Direction == RenderDirection.LeftToRight)
         {
@@ -80,7 +80,7 @@ internal class GridRender
         else throw new NotImplementedException();
     }
 
-    private void RenderLR(ISpreadSheet sheet, Cursor cursor, int width, int height, string? scope, SpreadStyle[] styles)
+    private void RenderLR(ISpreadSheet sheet, Cursor cursor, int width, int height, string? scope, ISpreadStyle[] styles)
     {
         static Cursor EndCursor(Cursor cursor, int padValue, int axisPadValue)
         {
@@ -110,7 +110,7 @@ internal class GridRender
                 var axisPadValue = height - axisTotalValue;
                 var padded = padValue == 0 && axisPadValue == 0;
                 var _scope = child._grid.Scope ?? scope;
-                SpreadStyle[] _styles = child._grid.Styles ?? (style is not null ? [style] : []);
+                ISpreadStyle[] _styles = child._grid.Styles ?? (style is not null ? [style] : []);
 
                 if (!padded && child.AutoSpan)
                 {
@@ -167,7 +167,7 @@ internal class GridRender
         }
     }
 
-    private void RenderTB(ISpreadSheet sheet, Cursor cursor, int width, int height, string? scope, SpreadStyle[] styles)
+    private void RenderTB(ISpreadSheet sheet, Cursor cursor, int width, int height, string? scope, ISpreadStyle[] styles)
     {
         static Cursor EndCursor(Cursor cursor, int padValue, int axisPadValue)
         {
@@ -197,7 +197,7 @@ internal class GridRender
                 var axisPadValue = width - axisTotalValue;
                 var padded = padValue == 0 && axisPadValue == 0;
                 var _scope = child._grid.Scope ?? scope;
-                SpreadStyle[] _styles = child._grid.Styles ?? (style is not null ? [style] : []);
+                ISpreadStyle[] _styles = child._grid.Styles ?? (style is not null ? [style] : []);
 
                 if (!padded && child.AutoSpan)
                 {

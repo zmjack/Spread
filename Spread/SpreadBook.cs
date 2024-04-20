@@ -2,15 +2,11 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
 using System.Text.Json;
 using System.Xml;
 
 namespace Spread;
-
-public interface ISpreadBook
-{
-    ISpreadSheet[] Sheets { get; }
-}
 
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static class ISpreadBookExtensions
@@ -28,35 +24,35 @@ public static class ISpreadBookExtensions
 
 public class SpreadBook : ISpreadBook, IEnumerable<SpreadSheet>
 {
-    public readonly List<SpreadSheet> Sheets = [];
-    ISpreadSheet[] ISpreadBook.Sheets => Sheets.ToArray();
+    private readonly List<SpreadSheet> _sheets = [];
+    public ISpreadSheet[] Sheets => _sheets.ToArray();
 
     [EditorBrowsable(EditorBrowsableState.Never)]
     [Obsolete("Devloping...")]
     public static ISpreadBook Parse([StringSyntax(StringSyntaxAttribute.Json)] string json)
     {
-        return JsonSerializer.Deserialize<ISpreadBook>(json)!;
+        return JsonSerializer.Deserialize<SpreadBook>(json)!;
     }
 
     [EditorBrowsable(EditorBrowsableState.Never)]
     [Obsolete("Devloping...")]
     public static ISpreadBook Parse(XmlDocument doc)
     {
-        return JsonSerializer.Deserialize<ISpreadBook>(JsonXmlSerializer.SerializeXmlNode(doc))!;
+        return JsonSerializer.Deserialize<SpreadBook>(JsonXmlSerializer.SerializeXmlNode(doc))!;
     }
 
     public void Add(SpreadSheet sheet)
     {
-        Sheets.Add(sheet);
+        _sheets.Add(sheet);
     }
 
     public IEnumerator<SpreadSheet> GetEnumerator()
     {
-        return Sheets.GetEnumerator();
+        return _sheets.GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-        return Sheets.GetEnumerator();
+        return _sheets.GetEnumerator();
     }
 }
