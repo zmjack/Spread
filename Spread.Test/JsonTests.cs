@@ -37,7 +37,7 @@ public class JsonTests
     public void Test2()
     {
 
-        var h = new SpreadFormHelper<Model>(new());
+        var h = new SpreadFormHelper<Model>();
         var aa =
             h.Table(x => x.Items!, p =>
             [

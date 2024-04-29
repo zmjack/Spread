@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Spread.Form;
 
-public partial class SpreadFormHelper<TEntity>(TEntity source)
+public partial class SpreadFormHelper<TEntity>
 {
     private static string GetDisplayName<TRet>(Expression<Func<TEntity, TRet>> selector)
     {
@@ -60,8 +60,6 @@ public partial class SpreadFormHelper<TEntity>(TEntity source)
     {
         return (from x in path select StringEx.CamelCase(x)).Join(".");
     }
-
-    public TEntity Source { get; set; } = source;
 
     private static SpreadFormRule GetDefaultRule<T>(Expression<Func<TEntity, T>> selector)
     {
@@ -156,7 +154,7 @@ public partial class SpreadFormHelper<TEntity>(TEntity source)
         var dataIndex = GetDataIndex(path);
         var label = GetDisplayName(selector);
 
-        var helper = new SpreadFormHelper<T>(default);
+        var helper = new SpreadFormHelper<T>();
         var columns = columnSelector(helper);
         var columnOptions = new Dictionary<string, SpreadOptionPair[]>
         (

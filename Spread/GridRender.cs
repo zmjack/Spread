@@ -95,7 +95,7 @@ internal class GridRender
         var totalValue = _children.Sum(x => x.Width);
         var padValue = width - totalValue;
 
-        foreach (var (index, child) in _children.AsIndexValuePairs())
+        foreach (var (index, child) in _children.Pairs())
         {
             var style = styles.Any() ? styles[index % styles.Length] : null;
 
@@ -182,7 +182,7 @@ internal class GridRender
         var totalValue = _children.Sum(x => x.Height);
         var padValue = height - totalValue;
 
-        foreach (var (index, child) in _children.AsIndexValuePairs())
+        foreach (var (index, child) in _children.Pairs())
         {
             var style = styles.Any() ? styles[index % styles.Length] : null;
 

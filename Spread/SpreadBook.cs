@@ -22,10 +22,10 @@ public static class ISpreadBookExtensions
     }
 }
 
-public class SpreadBook : ISpreadBook, IEnumerable<SpreadSheet>
+public class SpreadBook : ISpreadBook, IEnumerable<ISpreadSheet>
 {
-    private readonly List<SpreadSheet> _sheets = [];
-    public ISpreadSheet[] Sheets => _sheets.ToArray();
+    private readonly Dictionary<string, ISpreadSheet> _sheets = [];
+    public IReadOnlyDictionary<string, ISpreadSheet> Sheets => _sheets;
 
     [EditorBrowsable(EditorBrowsableState.Never)]
     [Obsolete("Devloping...")]
@@ -41,14 +41,14 @@ public class SpreadBook : ISpreadBook, IEnumerable<SpreadSheet>
         return JsonSerializer.Deserialize<SpreadBook>(JsonXmlSerializer.SerializeXmlNode(doc))!;
     }
 
-    public void Add(SpreadSheet sheet)
+    public void Add(ISpreadSheet sheet)
     {
-        _sheets.Add(sheet);
+        _sheets.Add(sheet.Name, sheet);
     }
 
-    public IEnumerator<SpreadSheet> GetEnumerator()
+    public IEnumerator<ISpreadSheet> GetEnumerator()
     {
-        return _sheets.GetEnumerator();
+        return _sheets.Values.GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()

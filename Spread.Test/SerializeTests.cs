@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 
 namespace Spread.Test
 {
@@ -20,10 +15,10 @@ namespace Spread.Test
                 }
             };
             var json = book.ToJson();
-            var html = new HtmlTable(book.Sheets[0]).ToHtml();
+            var html = new HtmlTable(book.Sheets["Grid"]).ToHtml();
 
             var _book = SpreadBook.Parse(json);
-            var _html = new HtmlTable(_book.Sheets[0]).ToHtml();
+            var _html = new HtmlTable(_book.Sheets["Grid"]).ToHtml();
         }
 
         [Fact]

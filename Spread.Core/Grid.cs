@@ -81,10 +81,7 @@ public abstract class Grid : IRenderUnit, IEnumerable<object>
             var enumerator = enumerable.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                var current = enumerator.Current;
-                if (current is null) continue;
-
-                Add(current);
+                Add(enumerator.Current);
             }
         }
     }
