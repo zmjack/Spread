@@ -2,5 +2,6 @@
 
 public interface ISpreadBook
 {
-    IReadOnlyDictionary<string, ISpreadSheet> Sheets { get; }
+    ISpreadSheet[] Sheets { get; }
+    ISpreadSheet this[string name] { get; }
 }

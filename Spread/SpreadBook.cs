@@ -25,7 +25,7 @@ public static class ISpreadBookExtensions
 public class SpreadBook : ISpreadBook, IEnumerable<ISpreadSheet>
 {
     private readonly Dictionary<string, ISpreadSheet> _sheets = [];
-    public IReadOnlyDictionary<string, ISpreadSheet> Sheets => _sheets;
+    public ISpreadSheet[] Sheets => [.. _sheets.Values];
 
     [EditorBrowsable(EditorBrowsableState.Never)]
     [Obsolete("Devloping...")]
@@ -40,6 +40,8 @@ public class SpreadBook : ISpreadBook, IEnumerable<ISpreadSheet>
     {
         return JsonSerializer.Deserialize<SpreadBook>(JsonXmlSerializer.SerializeXmlNode(doc))!;
     }
+
+    public ISpreadSheet this[string name] => _sheets[name];
 
     public void Add(ISpreadSheet sheet)
     {
