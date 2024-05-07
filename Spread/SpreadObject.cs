@@ -16,9 +16,11 @@ public sealed class SpreadObject<T> : ISpreadObject
     public SpreadObject(T obj)
     {
         Headers = SpreadHeader<T>.Values;
-        Values = [
-            ..  from prop in SpreadHeader<T>.Properties
-                select prop.GetValue(obj)
+        Values =
+        [
+            ..
+            from prop in SpreadHeader<T>.Properties
+            select prop.GetValue(obj)
         ];
     }
 }

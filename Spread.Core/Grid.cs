@@ -87,6 +87,8 @@ public abstract class Grid : IRenderUnit, IEnumerable<object>
     }
     public void Add(object? obj)
     {
+        if (obj is SpreadBlankValue) return;
+
         if (obj is Grid grid)
         {
             Add(grid);

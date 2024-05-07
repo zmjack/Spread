@@ -1,10 +1,22 @@
-﻿using System.Diagnostics;
+﻿using NStandard;
+using System.Diagnostics;
 
 namespace Spread;
+
+public class SpreadBlankValue : ISingleton<SpreadBlankValue>
+{
+    public static SpreadBlankValue Instance => StaticSingleton<SpreadBlankValue>.Instance;
+
+    public void OnInit()
+    {
+    }
+}
 
 [DebuggerDisplay("{Value}")]
 public struct SpreadValue(object? value) : IRenderUnit
 {
+    public static SpreadBlankValue Blank => SpreadBlankValue.Instance;
+
     public object? Source { get; set; }
     public bool AutoSpan { get; set; } = true;
 
