@@ -1,6 +1,6 @@
 ﻿namespace Spread.Form;
 
-public interface ISpreadFormRule
+public class SpreadRule : ISpreadRule
 {
     public bool Required { get; set; }
 }

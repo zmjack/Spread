@@ -1,4 +1,6 @@
-﻿namespace Spread;
+﻿using NStandard.Text.Json;
+
+namespace Spread;
 
 public interface ISpreadObject
 {

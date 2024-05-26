@@ -1,9 +1,9 @@
 ﻿namespace Spread.Form;
 
-public class SpreadFormLabel : ISpreadFormColumn
+public class SpreadNumber : ISpreadColumn
 {
     /// <inheritdoc />
-    public required string Type { get; set; }
+    public string Type => UIComponent.Number;
 
     /// <inheritdoc />
     public required string DataIndex { get; set; }
@@ -12,9 +12,7 @@ public class SpreadFormLabel : ISpreadFormColumn
     public required string Label { get; set; }
 
     /// <inheritdoc />
-    public ISpreadFormRule? Rule { get; set; }
-
-    public required string Content { get; set; }
+    public ISpreadRule? Rule { get; set; }
 
     public override string ToString()
     {

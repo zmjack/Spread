@@ -1,7 +1,7 @@
 ﻿namespace Spread.Form;
 
 [Flags]
-public enum SpreadFormTableOption
+public enum SpreadFormTableSetting
 {
     None = 0,
     Addible = 0b01,
@@ -9,10 +9,10 @@ public enum SpreadFormTableOption
     All = Addible | Removable,
 }
 
-public class SpreadFormTable : ISpreadFormColumn
+public class SpreadFormTable : ISpreadColumn
 {
     /// <inheritdoc />
-    public required string Type { get; set; }
+    public string Type => UIComponent.FormTable;
 
     /// <inheritdoc />
     public required string DataIndex { get; set; }
@@ -20,14 +20,14 @@ public class SpreadFormTable : ISpreadFormColumn
     /// <inheritdoc />
     public required string Label { get; set; }
 
-    public required SpreadFormTableOption Option { get; set; }
-
-    public required ISpreadFormColumn[] Columns { get; set; }
-
     /// <inheritdoc />
-    public ISpreadFormRule? Rule { get; set; }
+    public ISpreadRule? Rule { get; set; }
 
-    public Dictionary<string, SpreadOptionPair[]> ColumnOptions { get; set; }
+    public required SpreadFormTableSetting Setting { get; set; }
+
+    public required ISpreadColumn[] Columns { get; set; }
+
+    public Dictionary<string, SpreadOptionValue[]> ColumnOptions { get; set; }
 
     public override string ToString()
     {

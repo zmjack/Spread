@@ -1,5 +1,8 @@
-﻿namespace Spread;
+﻿using NStandard.Text.Json;
 
+namespace Spread;
+
+[JsonImpl<SpreadStyle, ISpreadStyle>]
 public record SpreadStyle : ISpreadStyle
 {
     public static readonly SpreadStyle Default = new();

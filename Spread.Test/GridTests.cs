@@ -1,6 +1,4 @@
-﻿using NStandard;
-
-namespace Spread.Test;
+﻿namespace Spread.Test;
 
 public class GridTests
 {

@@ -1,5 +1,4 @@
-﻿using Spread;
-using Spread.Visualizer;
+﻿using Spread.Visualizer;
 using System;
 
 namespace VisualizerTestApp

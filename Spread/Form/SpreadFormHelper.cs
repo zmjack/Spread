@@ -61,7 +61,7 @@ public partial class SpreadFormHelper<TEntity>
         return (from x in path select StringEx.CamelCase(x)).Join(".");
     }
 
-    private static SpreadFormRule GetDefaultRule<T>(Expression<Func<TEntity, T>> selector)
+    private static SpreadRule GetDefaultRule<T>(Expression<Func<TEntity, T>> selector)
     {
         var member = (selector.Body as MemberExpression)?.Member as PropertyInfo ?? throw new ArgumentException("Only MemberExpression is supported.", nameof(selector));
 
@@ -74,102 +74,102 @@ public partial class SpreadFormHelper<TEntity>
             "System.ComponentModel.DataAnnotations.RequiredAttribute",
         }.Contains(name) || (propertyType.IsValueType && !propertyType.IsNullable()));
 
-        return new SpreadFormRule
+        return new SpreadRule
         {
             Required = required,
         };
     }
 
-    private static SpreadFormValue InnerValue<T>(Expression<Func<TEntity, T>> selector, string type, SpreadFormRule? rule = null)
+    private struct DataIndexLabelPair
     {
-        rule ??= GetDefaultRule(selector);
+        public string DataIndex { get; set; }
+        public string Label { get; set; }
+    }
 
+    private static DataIndexLabelPair GetIndexPair<T>(Expression<Func<TEntity, T>> selector)
+    {
         var path = GetPath(selector);
         var dataIndex = GetDataIndex(path);
         var label = GetDisplayName(selector);
-
-        return new SpreadFormValue
+        return new DataIndexLabelPair
         {
-            Type = type,
             DataIndex = dataIndex,
             Label = label,
-            Rule = rule,
         };
     }
 
-    public SpreadFormLabel Label(string content)
+    public SpreadLabel Label(string content)
     {
-        return new SpreadFormLabel
+        return new SpreadLabel
         {
-            Type = UIComponent.Label,
-            DataIndex = default,
-            Label = default,
-            Rule = null,
             Content = content,
         };
     }
 
-    public SpreadFormValue Hide<T>(Expression<Func<TEntity, T>> selector) => InnerValue(selector, UIComponent.Hide, null);
-    public SpreadFormValue Text(Expression<Func<TEntity, string>> selector, SpreadFormRule? rule = null) => InnerValue(selector, UIComponent.Text, rule);
-
-    public SpreadFormImage Image<T>(Expression<Func<TEntity, T>> selector, string url, SpreadFormRule? rule = null)
+    public SpreadHide Hide<T>(Expression<Func<TEntity, T>> selector)
     {
-        rule ??= GetDefaultRule(selector);
-
-        var path = GetPath(selector);
-        var dataIndex = GetDataIndex(path);
-        var label = GetDisplayName(selector);
-
-        return new SpreadFormImage
+        var pair = GetIndexPair(selector);
+        return new SpreadHide
         {
-            Type = UIComponent.Image,
-            DataIndex = dataIndex,
-            Label = label,
-            Url = url,
-            Rule = rule,
+            DataIndex = pair.DataIndex,
+            Label = pair.Label,
         };
     }
 
-    public SpreadFormOption Option<T>(Expression<Func<TEntity, T>> selector, SpreadOptionPair[] options, SpreadFormRule? rule = null)
+    public SpreadText Text<T>(Expression<Func<TEntity, T>> selector, SpreadRule? rule = null)
     {
-        rule ??= GetDefaultRule(selector);
-
-        var path = GetPath(selector);
-        var dataIndex = GetDataIndex(path);
-        var label = GetDisplayName(selector);
-
-        return new SpreadFormOption
+        var pair = GetIndexPair(selector);
+        return new SpreadText
         {
-            Type = UIComponent.Option,
-            DataIndex = dataIndex,
-            Label = label,
-            Rule = rule,
+            DataIndex = pair.DataIndex,
+            Label = pair.Label,
+            Rule = rule ?? GetDefaultRule(selector),
+        };
+    }
+
+    public SpreadImage Image<T>(Expression<Func<TEntity, T>> selector, string url, SpreadRule? rule = null)
+    {
+        var pair = GetIndexPair(selector);
+        return new SpreadImage
+        {
+            DataIndex = pair.DataIndex,
+            Label = pair.Label,
+            Url = url,
+            Rule = rule ?? GetDefaultRule(selector),
+        };
+    }
+
+    public SpreadOption Option<T>(Expression<Func<TEntity, T>> selector, SpreadOptionValue[] options, SpreadRule? rule = null)
+    {
+        var pair = GetIndexPair(selector);
+        return new SpreadOption
+        {
+            DataIndex = pair.DataIndex,
+            Label = pair.Label,
+            Rule = rule ?? GetDefaultRule(selector),
             Options = options,
         };
     }
 
-    public SpreadFormTable Table<T>(Expression<Func<TEntity, IEnumerable<T>>> selector, Func<SpreadFormHelper<T>, ISpreadFormColumn[]> columnSelector, SpreadFormTableOption option = SpreadFormTableOption.None)
+    public SpreadFormTable Table<T>(Expression<Func<TEntity, IEnumerable<T>>> selector, Func<SpreadFormHelper<T>, ISpreadColumn[]> columnSelector, SpreadFormTableSetting setting = SpreadFormTableSetting.None)
     {
-        var path = GetPath(selector);
-        var dataIndex = GetDataIndex(path);
-        var label = GetDisplayName(selector);
+        var pair = GetIndexPair(selector);
 
         var helper = new SpreadFormHelper<T>();
         var columns = columnSelector(helper);
-        var columnOptions = new Dictionary<string, SpreadOptionPair[]>
+        var columnOptions = new Dictionary<string, SpreadOptionValue[]>
         (
-            from c in columns.OfType<SpreadFormOption>()
+            from c in columns.OfType<SpreadOption>()
             select KeyValuePair.Create(c.DataIndex, c.Options)
         );
 
         return new SpreadFormTable
         {
-            Type = UIComponent.Table,
-            DataIndex = dataIndex,
-            Label = label,
+            DataIndex = pair.DataIndex,
+            Label = pair.Label,
             Columns = columns,
             ColumnOptions = columnOptions,
-            Option = option,
+            Setting = setting,
         };
     }
 

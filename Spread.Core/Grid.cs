@@ -62,7 +62,7 @@ public abstract class Grid : IRenderUnit, IEnumerable<object>
         }
     }
 #if NET7_0_OR_GREATER
-    private void Add(ISpreadFormColumn formColumn)
+    private void Add(ISpreadColumn formColumn)
     {
         _objectList.Add(new Hori(":input")
         {
@@ -102,7 +102,7 @@ public abstract class Grid : IRenderUnit, IEnumerable<object>
             Add(spreadObject);
         }
 #if NET7_0_OR_GREATER
-        else if (obj is ISpreadFormColumn column)
+        else if (obj is ISpreadColumn column)
         {
             Add(column);
         }

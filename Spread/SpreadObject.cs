@@ -1,18 +1,13 @@
 ﻿namespace Spread;
 
-public static class SpreadObject
+public class SpreadObject : ISpreadObject
 {
-    public static SpreadObject<T> Create<T>(T value)
-    {
-        return new SpreadObject<T>(value);
-    }
+    public string[] Headers { get; protected set; }
+    public object[] Values { get; protected set; }
 }
 
-public sealed class SpreadObject<T> : ISpreadObject
+public sealed class SpreadObject<T> : SpreadObject
 {
-    public string[] Headers { get; }
-    public object[] Values { get; }
-
     public SpreadObject(T obj)
     {
         Headers = SpreadHeader<T>.Values;

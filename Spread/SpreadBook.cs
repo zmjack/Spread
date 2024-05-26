@@ -2,7 +2,6 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Serialization;
 using System.Text.Json;
 using System.Xml;
 
@@ -22,10 +21,13 @@ public static class ISpreadBookExtensions
     }
 }
 
+[JsonImpl<SpreadBook, ISpreadBook>]
 public class SpreadBook : ISpreadBook, IEnumerable<ISpreadSheet>
 {
     private readonly Dictionary<string, ISpreadSheet> _sheets = [];
     public ISpreadSheet[] Sheets => [.. _sheets.Values];
+
+    public ISpreadSheet this[string name] => _sheets[name];
 
     [EditorBrowsable(EditorBrowsableState.Never)]
     [Obsolete("Devloping...")]
@@ -40,8 +42,6 @@ public class SpreadBook : ISpreadBook, IEnumerable<ISpreadSheet>
     {
         return JsonSerializer.Deserialize<SpreadBook>(JsonXmlSerializer.SerializeXmlNode(doc))!;
     }
-
-    public ISpreadSheet this[string name] => _sheets[name];
 
     public void Add(ISpreadSheet sheet)
     {

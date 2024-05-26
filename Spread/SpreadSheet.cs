@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using NStandard.Text.Json;
+using System.Collections;
 using System.Runtime.Serialization;
-using System.Text.Json.Serialization;
 
 namespace Spread;
 
+[JsonImpl<SpreadSheet, ISpreadSheet>]
 public class SpreadSheet : ISpreadSheet, IEnumerable, ISerializable
 {
     public class RowAgent(SpreadSheet sheet) : IEnumerable<IRow>

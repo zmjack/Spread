@@ -1,4 +1,4 @@
-﻿namespace Spread.Form;
+﻿namespace Spread;
 
 public static class UIComponent
 {
@@ -11,5 +11,5 @@ public static class UIComponent
     public static string DateTime => "datetime";
     public static string Option => "option";
     public static string Image => "image";
-    public static string Table => "table";
+    public static string FormTable => "form-table";
 }
