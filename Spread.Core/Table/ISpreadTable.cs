@@ -4,9 +4,8 @@ namespace Spread.Table;
 
 public interface ISpreadTable
 {
-    public object? Source { get; set; }
-
-    public ISpreadColumn[] Columns { get; set; }
-
-    public ISpreadSheet[] Expand { get; set; }
+    object? Source { get; set; }
+    ISpreadColumn[] Columns { get; set; }
+    ISpreadSheet[] Expand { get; set; }
+    SpreadPagination Pagination { get; set; }
 }
