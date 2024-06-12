@@ -8,7 +8,7 @@
     <Authors>zmjack</Authors>
     <Company>linqsharp.net</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.9</Version>
+    <Version>0.0.10</Version>
     <Description>Smart spreadsheet creation library.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/zmjack/Spread</RepositoryUrl>

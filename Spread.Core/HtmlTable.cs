@@ -20,7 +20,7 @@ public class HtmlTable
     {
         ["border-collapse"] = "collapse",
         ["word-break"] = "keep-all",
-        ["white-space:nowrap"] = "nowrap",
+        ["white-space"] = "nowrap",
     };
 
     public HtmlTable(ISpreadSheet table, string @class = "table")

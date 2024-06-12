@@ -48,6 +48,14 @@ public class SpreadBook : ISpreadBook, IEnumerable<ISpreadSheet>
         _sheets.Add(sheet.Name, sheet);
     }
 
+    public void Add(IEnumerable<ISpreadSheet> sheets)
+    {
+        foreach (var sheet in sheets)
+        {
+            _sheets.Add(sheet.Name, sheet);
+        }
+    }
+
     public IEnumerator<ISpreadSheet> GetEnumerator()
     {
         return _sheets.Values.GetEnumerator();

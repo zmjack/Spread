@@ -9,14 +9,14 @@
     <Authors>zmjack</Authors>
     <Company>linqsharp.net</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.9</Version>
+    <Version>0.0.10</Version>
     <Description>Smart spreadsheet creation library.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/zmjack/Spread</RepositoryUrl>
     <PackageProjectUrl>https://github.com/zmjack/Spread</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <Copyright>Copyright © linqsharp.net 2023</Copyright>
-    <PackageId>Spread.Core</PackageId>
+    <PackageId>Spread.Core</PackageId> 
     <PackageTags>Spreadsheet</PackageTags>
     <PackageIconUrl />
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
