@@ -102,25 +102,30 @@ public class HtmlTable
     {
         if (cell.Ignored) return "";
 
-        var dict = new Dictionary<string, string>();
-        var style = cell.Style;
+        var dict = new Dictionary<string, string>()
+        {
+            ["max-width"] = "516px",
+            ["white-space"] = "normal",
+            ["word-wrap"] = "break-word",
+        };
 
+        var style = cell.Style;
         if (style is null) return string.Empty;
 
-        if (style.BackgroundColor is not null) dict.Add("background-color", $"#{style.BackgroundColor.Red:x2}{style.BackgroundColor.Green:x2}{style.BackgroundColor.Blue:x2}{(style.BackgroundColor.Alpha < byte.MaxValue ? $"{style.BackgroundColor.Alpha:x2}" : "")}");
-        if (style.Color is not null) dict.Add("color", $"#{style.Color.Red:x2}{style.Color.Green:x2}{style.Color.Blue:x2}{(style.Color.Alpha < byte.MaxValue ? $"{style.Color.Alpha}:x2" : "")}");
-        if (style.FontFamily is not null) dict.Add("font-family", $"{style.FontFamily}");
-        if (style.FontSize.HasValue) dict.Add("font-size", $"{style.FontSize}px");
-        if (style.Bold.HasValue && style.Bold.Value) dict.Add("font-weight", $"bold");
-        if (style.BorderTop.HasValue && style.BorderTop.Value) dict.Add("border-top", $"1px solid #000000");
-        if (style.BorderBottom.HasValue && style.BorderBottom.Value) dict.Add("border-bottom", $"1px solid #000000");
-        if (style.BorderLeft.HasValue && style.BorderLeft.Value) dict.Add("border-left", $"1px solid #000000");
-        if (style.BorderRight.HasValue && style.BorderRight.Value) dict.Add("border-right", $"1px solid #000000");
-        if (style.HoriAlign.HasValue && style.HoriAlign.Value != HoriAlign.Preserve) dict.Add("text-align", $"{style.HoriAlign?.ToString().ToLower()}");
-        if (style.VertAlign.HasValue && style.VertAlign.Value != VertAlign.Preserve) dict.Add("vertical-align", $"{style.VertAlign?.ToString().ToLower()}");
-        if (style.Padding.HasValue) dict.Add("padding", $"{style.Padding.Value}");
+        if (style.BackgroundColor is not null) dict["background-color"] = style.BackgroundColor.GetHtmlColor();
+        if (style.Color is not null) dict["color"] = style.Color.GetHtmlColor();
+        if (style.FontFamily is not null) dict["font-family"] = $"{style.FontFamily}";
+        if (style.FontSize.HasValue) dict["font-size"] = $"{style.FontSize}px";
+        if (style.Bold.HasValue && style.Bold.Value) dict["font-weight"] = "bold";
+        if (style.BorderTop.HasValue && style.BorderTop.Value) dict["border-top"] = "1px solid #000000";
+        if (style.BorderBottom.HasValue && style.BorderBottom.Value) dict["border-bottom"] = "1px solid #000000";
+        if (style.BorderLeft.HasValue && style.BorderLeft.Value) dict["border-left"] = "1px solid #000000";
+        if (style.BorderRight.HasValue && style.BorderRight.Value) dict["border-right"] = "1px solid #000000";
+        if (style.HoriAlign.HasValue && style.HoriAlign.Value != HoriAlign.Preserve) dict["text-align"] = $"{style.HoriAlign?.ToString().ToLower()}";
+        if (style.VertAlign.HasValue && style.VertAlign.Value != VertAlign.Preserve) dict["vertical-align"] = $"{style.VertAlign?.ToString().ToLower()}";
+        if (style.Padding.HasValue) dict["padding"] = $"{style.Padding.Value}";
 
-        return $@"style=""{dict.Select(pair => $"{pair.Key}:{pair.Value}").Join(";")}""";
+        return $@"style=""{(from pair in dict select $"{pair.Key}:{pair.Value}").Join(";")}""";
     }
 
     public string ToHtml()

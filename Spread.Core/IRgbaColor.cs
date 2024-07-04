@@ -1,6 +1,4 @@
-﻿using NStandard.Text.Json;
-
-namespace Spread;
+﻿namespace Spread;
 
 public interface IRgbaColor
 {
@@ -9,4 +7,12 @@ public interface IRgbaColor
     byte Blue { get; set; }
     byte Alpha { get; set; }
     uint Value { get; }
+}
+
+public static class IRgbaColorExtensions
+{
+    public static string GetHtmlColor(this IRgbaColor @this)
+    {
+        return $"rgba({@this.Red},{@this.Green},{@this.Blue},{@this.Alpha / 255})";
+    }
 }

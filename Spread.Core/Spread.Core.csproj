@@ -9,7 +9,7 @@
     <Authors>zmjack</Authors>
     <Company>linqsharp.net</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.10</Version>
+    <Version>0.0.11</Version>
     <Description>Smart spreadsheet creation library.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/zmjack/Spread</RepositoryUrl>
@@ -46,7 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NStandard" Version="0.64.6" />
+    <PackageReference Include="NStandard" Version="0.71.1" />
   </ItemGroup>
 
 </Project>
