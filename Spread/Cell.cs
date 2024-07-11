@@ -2,6 +2,7 @@
 
 namespace Spread;
 
+[Serializable]
 [DebuggerDisplay("{Name}: <{Scope}> {Text}")]
 public class Cell : ICell
 {
@@ -60,7 +61,7 @@ public class Cell : ICell
         set
         {
             var render = new GridRender(value);
-            render.Render(_row._sheet, (_row.Index, ColIndex));
+            render.Render(_row._sheet, new(_row.Index, ColIndex));
         }
     }
 

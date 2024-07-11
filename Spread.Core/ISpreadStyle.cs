@@ -2,7 +2,7 @@
 
 public interface ISpreadStyle
 {
-    IRgbaColor? BackgroundColor { get; set; }
+    RgbaColor? BackgroundColor { get; set; }
     bool? Bold { get; set; }
     bool? Border { get; set; }
     bool? BorderBottom { get; set; }
@@ -10,7 +10,7 @@ public interface ISpreadStyle
     bool? BorderRight { get; set; }
     bool? BorderTop { get; set; }
     bool Center { get; set; }
-    IRgbaColor? Color { get; set; }
+    RgbaColor? Color { get; set; }
     string? FontFamily { get; set; }
     int? FontSize { get; set; }
     string? Format { get; set; }

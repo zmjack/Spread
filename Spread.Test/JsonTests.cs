@@ -23,20 +23,19 @@ public class JsonTests
     [Fact]
     public void Test()
     {
-        ISpreadBook book = new SpreadBook
+        SpreadBook book = new SpreadBook
         {
-            new SpreadSheet("simple", "123")
-            {
-                SimpleSheet.Grid,
-            }
+            //new SpreadSheet("simple", "123")
+            //{
+            //    SimpleSheet.Grid,
+            //}
         };
-        var json = book.ToJson(new JsonSerializerOptions { WriteIndented = true });
+        var json = book.ToJson();
     }
 
     [Fact]
     public void Test2()
     {
-
         var h = new SpreadFormHelper<Model>();
         var aa =
             h.Table(x => x.Items!, p =>

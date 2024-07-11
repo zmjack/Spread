@@ -14,7 +14,7 @@ public class SpreadLabel : ISpreadColumn
     /// <inheritdoc />
     public ISpreadRule? Rule { get; set; }
 
-    public required string Content { get; set; }
+    public string Content { get; set; }
 
     public override string ToString()
     {

@@ -3,6 +3,7 @@ using System.Diagnostics;
 
 namespace Spread;
 
+[Serializable]
 [DebuggerDisplay("{Name}")]
 public class Row : IRow, IEnumerable<ICell>
 {
@@ -13,6 +14,11 @@ public class Row : IRow, IEnumerable<ICell>
 
     public int Index => _rowIndex;
     public string Name => $"{_rowIndex + 1}";
+
+    public Row()
+    {
+        throw new NotImplementedException();
+    }
 
     internal Row(SpreadSheet sheet, int index)
     {

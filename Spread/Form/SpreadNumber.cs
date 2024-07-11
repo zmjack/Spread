@@ -6,10 +6,10 @@ public class SpreadNumber : ISpreadColumn
     public string Type => UIComponent.Number;
 
     /// <inheritdoc />
-    public required string DataIndex { get; set; }
+    public string DataIndex { get; set; }
 
     /// <inheritdoc />
-    public required string Label { get; set; }
+    public string Label { get; set; }
 
     /// <inheritdoc />
     public ISpreadRule? Rule { get; set; }

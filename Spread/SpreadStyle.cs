@@ -2,7 +2,7 @@
 
 namespace Spread;
 
-[JsonImpl<SpreadStyle, ISpreadStyle>]
+[JsonAs<SpreadStyle, ISpreadStyle>]
 public record SpreadStyle : ISpreadStyle
 {
     public static readonly SpreadStyle Default = new();
@@ -20,8 +20,8 @@ public record SpreadStyle : ISpreadStyle
 
     public bool IsHeadCell { get; set; }
 
-    public IRgbaColor? BackgroundColor { get; set; }
-    public IRgbaColor? Color { get; set; }
+    public RgbaColor? BackgroundColor { get; set; }
+    public RgbaColor? Color { get; set; }
     public int? FontSize { get; set; }
     public string? FontFamily { get; set; }
     public bool? Bold { get; set; }

@@ -58,11 +58,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Spread.Visualizer\Spread.Visualizer.csproj">
-      <Project>{b729e81d-5168-4269-9070-3b1b8ebf25b8}</Project>
-      <Name>Spread.Visualizer</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

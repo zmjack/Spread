@@ -24,7 +24,7 @@ public class SpreadRange : ISpreadRange
             {
                 for (var col = _start.Col; col <= _end.Col; col++)
                 {
-                    yield return Sheet[(row, col)];
+                    yield return Sheet[new Cursor(row, col)];
                 }
             }
         }
@@ -35,12 +35,12 @@ public class SpreadRange : ISpreadRange
     public SpreadRange Row(int index)
     {
         var row = Start.Row + index;
-        return new SpreadRange(Sheet, (row, Start.Col), (row, End.Col));
+        return new SpreadRange(Sheet, new(row, Start.Col), new(row, End.Col));
     }
 
     public SpreadRange Column(int index)
     {
         var col = Start.Col + index;
-        return new SpreadRange(Sheet, (Start.Row, col), (End.Row, col));
+        return new SpreadRange(Sheet, new(Start.Row, col), new(End.Row, col));
     }
 }

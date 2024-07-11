@@ -1,6 +1,7 @@
 ﻿using NStandard;
 using NStandard.Flows;
 using System.Text;
+using System.Text.Json;
 
 namespace Spread;
 
@@ -112,8 +113,8 @@ public class HtmlTable
         var style = cell.Style;
         if (style is null) return string.Empty;
 
-        if (style.BackgroundColor is not null) dict["background-color"] = style.BackgroundColor.GetHtmlColor();
-        if (style.Color is not null) dict["color"] = style.Color.GetHtmlColor();
+        if (style.BackgroundColor is not null) dict["background-color"] = Json(style.BackgroundColor);
+        if (style.Color is not null) dict["color"] = Json(style.Color);
         if (style.FontFamily is not null) dict["font-family"] = $"{style.FontFamily}";
         if (style.FontSize.HasValue) dict["font-size"] = $"{style.FontSize}px";
         if (style.Bold.HasValue && style.Bold.Value) dict["font-weight"] = "bold";
@@ -121,11 +122,16 @@ public class HtmlTable
         if (style.BorderBottom.HasValue && style.BorderBottom.Value) dict["border-bottom"] = "1px solid #000000";
         if (style.BorderLeft.HasValue && style.BorderLeft.Value) dict["border-left"] = "1px solid #000000";
         if (style.BorderRight.HasValue && style.BorderRight.Value) dict["border-right"] = "1px solid #000000";
+        if (style.Padding.HasValue) dict["padding"] = $"{style.Padding.Value}";
         if (style.HoriAlign.HasValue && style.HoriAlign.Value != HoriAlign.Preserve) dict["text-align"] = $"{style.HoriAlign?.ToString().ToLower()}";
         if (style.VertAlign.HasValue && style.VertAlign.Value != VertAlign.Preserve) dict["vertical-align"] = $"{style.VertAlign?.ToString().ToLower()}";
-        if (style.Padding.HasValue) dict["padding"] = $"{style.Padding.Value}";
 
         return $@"style=""{(from pair in dict select $"{pair.Key}:{pair.Value}").Join(";")}""";
+    }
+
+    private static string Json<T>(T obj)
+    {
+        return JsonSerializer.Serialize(obj, new JsonSerializerOptions(JsonSerializerDefaults.Web)).Trim('\"');
     }
 
     public string ToHtml()
@@ -133,8 +139,9 @@ public class HtmlTable
         static string? GetHtml(string? str)
         {
             if (str is null) return null;
-            return str?.NormalizeNewLine()
-                .Replace(" ", "\u00A0").Pipe(StringFlow.HtmlEncode)
+
+            return str.NormalizeNewLine()
+                .Replace(" ", "\u00A0").Pipe(StringFlow.HtmlEncode)!
                 .Replace(Environment.NewLine, "<br/>");
         }
 

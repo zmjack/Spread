@@ -15,17 +15,17 @@ public class SpreadFormTable : ISpreadColumn
     public string Type => UIComponent.FormTable;
 
     /// <inheritdoc />
-    public required string DataIndex { get; set; }
+    public string DataIndex { get; set; }
 
     /// <inheritdoc />
-    public required string Label { get; set; }
+    public string Label { get; set; }
 
     /// <inheritdoc />
     public ISpreadRule? Rule { get; set; }
 
-    public required SpreadFormTableSetting Setting { get; set; }
+    public SpreadFormTableSetting Setting { get; set; }
 
-    public required ISpreadColumn[] Columns { get; set; }
+    public ISpreadColumn[] Columns { get; set; }
 
     public Dictionary<string, SpreadOptionValue[]> ColumnOptions { get; set; }
 

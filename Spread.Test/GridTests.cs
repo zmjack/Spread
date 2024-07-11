@@ -27,6 +27,7 @@ public class GridTests
         {
             new Hori(SpreadStyle.Default with
             {
+                BackgroundColor = new RgbaColor(255, 0, 0),
                 Format = "#,###.00",
                 Padding = 4,
             })

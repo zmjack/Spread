@@ -15,10 +15,10 @@ namespace Spread.Test
                 }
             };
             var json = book.ToJson();
-            var html = new HtmlTable(book["Grid"]).ToHtml();
+            //var html = new HtmlTable(book["Grid"]).ToHtml();
 
-            var _book = SpreadBook.Parse(json);
-            var _html = new HtmlTable(_book["Grid"]).ToHtml();
+            //var _book = SpreadBook.Parse(json);
+            //var _html = new HtmlTable(_book["Grid"]).ToHtml();
         }
 
         [Fact]

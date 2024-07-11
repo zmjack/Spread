@@ -4,8 +4,13 @@ using System.Runtime.Serialization;
 
 namespace Spread;
 
-[JsonImpl<SpreadSheet, ISpreadSheet>]
-public class SpreadSheet : ISpreadSheet, IEnumerable, ISerializable
+public interface ISpreadSheetSerializable
+{
+
+}
+
+[JsonAs<SpreadSheet, ISpreadSheet>]
+public class SpreadSheet : ISpreadSheet, IEnumerable
 {
     public class RowAgent(SpreadSheet sheet) : IEnumerable<IRow>
     {
@@ -59,7 +64,11 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISerializable
         Source = source;
     }
 
-    public IEnumerable<IRow> Rows => _rows.Values;
+    public IRow[] Rows
+    {
+        get => [.. _rows.Values];
+        set => throw new NotImplementedException();
+    }
     public IEnumerable<ICell> GetCells()
     {
         foreach (var row in _rows.Values)
@@ -70,7 +79,7 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISerializable
 
     public void Add(Grid grid)
     {
-        this[(RowLength, 0)].Grid = grid;
+        this[new Cursor(RowLength, 0)].Grid = grid;
     }
 
     public IRow this[int row] => _rowSelector[row];
@@ -79,7 +88,7 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISerializable
 
     public Grid this[int row, int col]
     {
-        set => this[(row, col)].Grid = value;
+        set => this[new Cursor(row, col)].Grid = value;
     }
 
     public void Merge(Cursor start, Cursor end)
@@ -94,7 +103,7 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISerializable
         {
             for (int col = start.Col; col <= end.Col; col++)
             {
-                var cell = this[(row, col)];
+                var cell = this[new Cursor(row, col)];
                 if (cell.Merged) continue;
 
                 cell.Ignored = true;
@@ -121,19 +130,19 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISerializable
         Cursor start = cursorCell.Ignored switch
         {
             false => cursor,
-            true => (cursor.Row - cursorCell.RowOffset, cursor.Col - cursorCell.ColOffset),
+            true => new(cursor.Row - cursorCell.RowOffset, cursor.Col - cursorCell.ColOffset),
         };
         Cursor end = cursorCell.Ignored switch
         {
-            false => (cursor.Row + cursorCell.RowSpan - 1, cursor.Col + cursorCell.ColSpan - 1),
-            true => (cursor.Row + cursorCell.RowSpan - 1 - cursorCell.RowOffset, cursor.Col + cursorCell.ColSpan - 1 - cursorCell.ColOffset),
+            false => new(cursor.Row + cursorCell.RowSpan - 1, cursor.Col + cursorCell.ColSpan - 1),
+            true => new(cursor.Row + cursorCell.RowSpan - 1 - cursorCell.RowOffset, cursor.Col + cursorCell.ColSpan - 1 - cursorCell.ColOffset),
         };
 
         for (int row = start.Row; row <= end.Row; row++)
         {
             for (int col = start.Col; col <= end.Col; col++)
             {
-                var cell = this[(row, col)];
+                var cell = this[new Cursor(row, col)];
                 cell.Ignored = false;
                 cell.RowSpan = 1;
                 cell.ColSpan = 1;
@@ -147,10 +156,5 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISerializable
     public IEnumerator GetEnumerator()
     {
         return _rows.Values.GetEnumerator();
-    }
-
-    public void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        throw new NotImplementedException();
     }
 }

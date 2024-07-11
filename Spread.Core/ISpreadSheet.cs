@@ -1,5 +1,8 @@
-﻿namespace Spread;
+﻿using NStandard.Text.Json;
 
+namespace Spread;
+
+[JsonImpl<ISpreadSheet>]
 public interface ISpreadSheet
 {
     object? Source { get; }

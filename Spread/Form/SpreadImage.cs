@@ -6,12 +6,12 @@ public class SpreadImage : ISpreadColumn
     public string Type => UIComponent.Image;
 
     /// <inheritdoc />
-    public required string DataIndex { get; set; }
+    public string DataIndex { get; set; }
 
     /// <inheritdoc />
-    public required string Label { get; set; }
+    public string Label { get; set; }
 
-    public required string Url { get; set; }
+    public string Url { get; set; }
 
     /// <inheritdoc />
     public ISpreadRule? Rule { get; set; }

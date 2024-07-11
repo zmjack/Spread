@@ -1,0 +1,198 @@
+﻿using NStandard;
+using NStandard.Flows;
+using System.Text;
+using System.Text.Json;
+
+namespace Spread;
+
+public class HtmlTable
+{
+    public ISpreadSheet Sheet { get; }
+    public string Class { get; set; }
+
+    public Dictionary<string, string> Props;
+    public Dictionary<string, string> Style;
+
+    public static readonly Dictionary<string, string> PropsDefault = new()
+    {
+        ["width"] = "100%",
+    };
+    public static readonly Dictionary<string, string> StyleDefault = new()
+    {
+        ["border-collapse"] = "collapse",
+        ["word-break"] = "keep-all",
+        ["white-space"] = "nowrap",
+    };
+
+    public HtmlTable(ISpreadSheet table, string @class = "table")
+    {
+        Sheet = table;
+        Class = @class;
+    }
+
+    private string? GetPropsString()
+    {
+        static string GetRow(KeyValuePair<string, string> prop)
+        {
+            return $" {StringFlow.HtmlEncode(prop.Key)}=\"{StringFlow.HtmlEncode(prop.Value)}\"";
+        }
+
+        var sb = new StringBuilder();
+        var props = Props;
+        var keys = props?.Keys.ToArray() ?? [];
+
+        if (props is not null && props.Any())
+        {
+            foreach (var pair in props)
+            {
+                sb.Append(GetRow(pair));
+            }
+        }
+
+        foreach (var pair in PropsDefault.Where(x => !keys.Contains(x.Key)))
+        {
+            sb.Append(GetRow(pair));
+        }
+
+        return sb.ToString();
+    }
+
+    private string? GetStyleString()
+    {
+        static string GetRow(KeyValuePair<string, string> pair)
+        {
+            return $"{StringFlow.HtmlEncode(pair.Key)}:{StringFlow.HtmlEncode(pair.Value)};";
+        }
+
+        var sb = new StringBuilder();
+        var style = Style;
+        var keys = style?.Keys.ToArray() ?? [];
+
+        if (style is not null && style.Any())
+        {
+            foreach (var pair in style)
+            {
+                sb.Append(GetRow(pair));
+            }
+        }
+
+        foreach (var pair in StyleDefault.Where(x => !keys.Contains(x.Key)))
+        {
+            sb.Append(GetRow(pair));
+        }
+
+        return sb.ToString();
+    }
+
+    private static string GetPropsString(params string[] props)
+    {
+        return props.Where(prop => !prop.IsNullOrWhiteSpace()).Select(prop => $" {prop}").Join("");
+    }
+    private static string RowSpanProp(ICell cell)
+    {
+        var span = cell.RowSpan;
+        return span > 1 ? $@"rowspan=""{span}""" : "";
+    }
+    private static string ColSpanProp(ICell cell)
+    {
+        var span = cell.ColSpan;
+        return span > 1 ? $@"colspan=""{span}""" : "";
+    }
+
+    private static string StyleProp(ICell cell)
+    {
+        if (cell.Ignored) return "";
+
+        var dict = new Dictionary<string, string>()
+        {
+            ["max-width"] = "516px",
+            ["white-space"] = "normal",
+            ["word-wrap"] = "break-word",
+        };
+
+        var style = cell.Style;
+        if (style is null) return string.Empty;
+
+        if (style.BackgroundColor is not null) dict["background-color"] = Json(style.BackgroundColor);
+        if (style.Color is not null) dict["color"] = Json(style.Color);
+        if (style.FontFamily is not null) dict["font-family"] = $"{style.FontFamily}";
+        if (style.FontSize.HasValue) dict["font-size"] = $"{style.FontSize}px";
+        if (style.Bold.HasValue && style.Bold.Value) dict["font-weight"] = "bold";
+        if (style.BorderTop.HasValue && style.BorderTop.Value) dict["border-top"] = "1px solid #000000";
+        if (style.BorderBottom.HasValue && style.BorderBottom.Value) dict["border-bottom"] = "1px solid #000000";
+        if (style.BorderLeft.HasValue && style.BorderLeft.Value) dict["border-left"] = "1px solid #000000";
+        if (style.BorderRight.HasValue && style.BorderRight.Value) dict["border-right"] = "1px solid #000000";
+        if (style.Padding.HasValue) dict["padding"] = $"{style.Padding.Value}";
+        if (style.HoriAlign.HasValue && style.HoriAlign.Value != HoriAlign.Preserve) dict["text-align"] = $"{style.HoriAlign?.ToString().ToLower()}";
+        if (style.VertAlign.HasValue && style.VertAlign.Value != VertAlign.Preserve) dict["vertical-align"] = $"{style.VertAlign?.ToString().ToLower()}";
+
+        return $@"style=""{(from pair in dict select $"{pair.Key}:{pair.Value}").Join(";")}""";
+    }
+
+    private static string Json<T>(T obj)
+    {
+        return JsonSerializer.Serialize(obj, new JsonSerializerOptions(JsonSerializerDefaults.Web)).Trim('\"');
+    }
+
+    public string ToHtml()
+    {
+        static string? GetHtml(string? str)
+        {
+            if (str is null) return null;
+
+            return str.NormalizeNewLine()
+                .Replace(" ", "\u00A0").Pipe(StringFlow.HtmlEncode)!
+                .Replace(Environment.NewLine, "<br/>");
+        }
+
+        var propsString = GetPropsString();
+        var styleString = GetStyleString();
+
+        var sb = new StringBuilder();
+        sb.Append("<table");
+        if (!Class.IsNullOrWhiteSpace()) sb.Append($@" class=""{Class}""");
+        if (!propsString.IsNullOrWhiteSpace()) sb.Append(propsString);
+        if (!styleString.IsNullOrWhiteSpace()) sb.Append($@" style=""{styleString}""");
+        sb.AppendLine(">");
+
+        sb.AppendLine(@"<tbody>");
+
+        foreach (var row in Sheet.Rows)
+        {
+            sb.AppendLine(@"<tr>");
+            foreach (var cell in row.Cells.Where(x => !x.Ignored))
+            {
+                //TODO: Auto calculate width
+                var lines = cell.Comment?.GetPureLines() ?? [];
+                int cellWidth = 10;
+                if (lines.Any())
+                {
+                    cellWidth += lines.Max(x => (cell.Style?.FontSize ?? 12) * x.GetLengthA());
+                }
+
+                sb.AppendLine($@"<td{GetPropsString(RowSpanProp(cell), ColSpanProp(cell), StyleProp(cell))}>");
+                if (!(cell.Comment?.IsNullOrWhiteSpace() ?? true))
+                {
+                    sb.AppendLine($@"
+<span class=""excel-sharp"">
+    <span class=""excel-text"">{GetHtml(cell.Text)}</span>
+    <div></div>
+    <div class=""excel-comment"" style=""width:{cellWidth}px"">
+        {GetHtml(cell.Comment)}
+    </div>
+</span>
+");
+                }
+                else sb.AppendLine(GetHtml(cell.Text));
+                sb.AppendLine("</td>");
+            }
+            sb.AppendLine(@"</tr>");
+        }
+
+        sb.AppendLine(@"</tbody>");
+        sb.AppendLine(@"</table>");
+
+        return sb.ToString();
+    }
+
+}
