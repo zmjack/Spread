@@ -1,9 +1,9 @@
-﻿namespace Spread.Form;
+﻿namespace Spread.Form.Columns;
 
-public class SpreadDateTime : ISpreadColumn
+public class SpreadOption : ISpreadColumn
 {
     /// <inheritdoc />
-    public string Type => UIComponent.DateTime;
+    public string Type => UIComponent.Option;
 
     /// <inheritdoc />
     public string DataIndex { get; set; }
@@ -13,6 +13,8 @@ public class SpreadDateTime : ISpreadColumn
 
     /// <inheritdoc />
     public ISpreadRule? Rule { get; set; }
+
+    public SpreadOptionValue[]? Options { get; set; }
 
     public override string ToString()
     {

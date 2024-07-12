@@ -2,7 +2,6 @@
 
 namespace Spread.Form;
 
-[JsonImpl<ISpreadColumn>]
 public interface ISpreadColumn
 {
     /// <summary>

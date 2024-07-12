@@ -2,14 +2,23 @@
 
 namespace Spread;
 
+public interface ISpreadSheetSerializable
+{
+    object? Source { get; set; }
+    string Name { get; set; }
+    int RowLength { get; set; }
+    int ColumnLength { get; set; }
+    IEnumerable<IRow> Rows { get; set; }
+}
+
 [JsonImpl<ISpreadSheet, SpreadSheet>]
 public interface ISpreadSheet
 {
-    // object? Source { get; set; }
-    //string Name { get; set; }
-    //int RowLength { get; set; }
-    //int ColumnLength { get; set; }
-    IRow[] Rows { get; set; }
+    object? Source { get; set; }
+    string Name { get; set; }
+    int RowLength { get; set; }
+    int ColumnLength { get; set; }
+    IEnumerable<IRow> Rows { get; set; }
 
     IRow this[int row] { get; }
     ICell this[Cursor cursor] { get; }

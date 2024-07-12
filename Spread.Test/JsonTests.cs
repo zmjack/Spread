@@ -25,10 +25,10 @@ public class JsonTests
     {
         SpreadBook book = new SpreadBook
         {
-            //new SpreadSheet("simple", "123")
-            //{
-            //    SimpleSheet.Grid,
-            //}
+            new SpreadSheet("simple", "123")
+            {
+                SimpleSheet.Grid,
+            }
         };
         var json = book.ToJson();
     }

@@ -1,4 +1,4 @@
-﻿namespace Spread.Form;
+﻿namespace Spread.Form.Columns;
 
 [Flags]
 public enum SpreadFormTableSetting

@@ -1,9 +1,9 @@
-﻿namespace Spread.Form;
+﻿namespace Spread.Form.Columns;
 
-public class SpreadPercent : ISpreadColumn
+public class SpreadDateTime : ISpreadColumn
 {
     /// <inheritdoc />
-    public string Type => UIComponent.Percent;
+    public string Type => UIComponent.DateTime;
 
     /// <inheritdoc />
     public string DataIndex { get; set; }

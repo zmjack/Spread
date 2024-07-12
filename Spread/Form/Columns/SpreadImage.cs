@@ -1,9 +1,9 @@
-﻿namespace Spread.Form;
+﻿namespace Spread.Form.Columns;
 
-public class SpreadOption : ISpreadColumn
+public class SpreadImage : ISpreadColumn
 {
     /// <inheritdoc />
-    public string Type => UIComponent.Option;
+    public string Type => UIComponent.Image;
 
     /// <inheritdoc />
     public string DataIndex { get; set; }
@@ -11,10 +11,10 @@ public class SpreadOption : ISpreadColumn
     /// <inheritdoc />
     public string Label { get; set; }
 
+    public string Url { get; set; }
+
     /// <inheritdoc />
     public ISpreadRule? Rule { get; set; }
-
-    public SpreadOptionValue[]? Options { get; set; }
 
     public override string ToString()
     {

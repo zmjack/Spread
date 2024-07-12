@@ -1,4 +1,4 @@
-﻿namespace Spread.Form;
+﻿namespace Spread.Form.Columns;
 
 public class SpreadLabel : ISpreadColumn
 {

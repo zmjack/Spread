@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using NStandard.Text.Json;
+using System.Collections;
 using System.Diagnostics;
 
 namespace Spread;
 
 [Serializable]
 [DebuggerDisplay("{Name}")]
-public class Row : IRow, IEnumerable<ICell>
+[JsonAs<Row, IRowSerializable>]
+public class Row : IRow, IEnumerable<ICell>, IRowSerializable
 {
     private readonly Dictionary<int, ICell> _innerCells = [];
 

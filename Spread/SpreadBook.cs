@@ -11,12 +11,6 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Spread;
 
-[JsonImpl<ISpreadBookSerializable, SpreadBook>]
-public interface ISpreadBookSerializable
-{
-    public SpreadSheet[] Sheets { get; set; }
-}
-
 [Serializable]
 [JsonAs<SpreadBook, ISpreadBookSerializable>]
 public class SpreadBook : ISpreadBook, IEnumerable<ISpreadSheet>, ISpreadBookSerializable, ISerializable

@@ -2,7 +2,6 @@
 
 namespace Spread;
 
-[JsonAs<SpreadStyle, ISpreadStyle>]
 public record SpreadStyle : ISpreadStyle
 {
     public static readonly SpreadStyle Default = new();

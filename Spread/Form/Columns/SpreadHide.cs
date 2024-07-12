@@ -1,17 +1,15 @@
-﻿namespace Spread.Form;
+﻿namespace Spread.Form.Columns;
 
-public class SpreadImage : ISpreadColumn
+public class SpreadHide : ISpreadColumn
 {
     /// <inheritdoc />
-    public string Type => UIComponent.Image;
+    public string Type => UIComponent.Hide;
 
     /// <inheritdoc />
     public string DataIndex { get; set; }
 
     /// <inheritdoc />
     public string Label { get; set; }
-
-    public string Url { get; set; }
 
     /// <inheritdoc />
     public ISpreadRule? Rule { get; set; }

@@ -1,5 +1,9 @@
-﻿namespace Spread;
+﻿using System.Text.Json.Serialization;
 
+namespace Spread;
+
+[JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
+[JsonDerivedType(typeof(SpreadStyle), nameof(SpreadStyle))]
 public interface ISpreadStyle
 {
     RgbaColor? BackgroundColor { get; set; }

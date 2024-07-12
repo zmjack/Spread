@@ -4,13 +4,8 @@ using System.Runtime.Serialization;
 
 namespace Spread;
 
-public interface ISpreadSheetSerializable
-{
-
-}
-
-[JsonAs<SpreadSheet, ISpreadSheet>]
-public class SpreadSheet : ISpreadSheet, IEnumerable
+[JsonAs<SpreadSheet, ISpreadSheetSerializable>]
+public class SpreadSheet : ISpreadSheet, IEnumerable, ISpreadSheetSerializable
 {
     public class RowAgent(SpreadSheet sheet) : IEnumerable<IRow>
     {
@@ -44,8 +39,16 @@ public class SpreadSheet : ISpreadSheet, IEnumerable
     internal int _maxRowIndex = -1;
     internal int _maxColumnIndex = -1;
 
-    public int RowLength => _maxRowIndex + 1;
-    public int ColumnLength => _maxColumnIndex + 1;
+    public int RowLength
+    {
+        get => _maxRowIndex + 1;
+        set => _maxRowIndex = value - 1;
+    }
+    public int ColumnLength
+    {
+        get => _maxColumnIndex + 1;
+        set => _maxColumnIndex = value - 1;
+    }
 
     private readonly RowAgent _rowSelector;
     public string Name { get; set; }
@@ -64,10 +67,17 @@ public class SpreadSheet : ISpreadSheet, IEnumerable
         Source = source;
     }
 
-    public IRow[] Rows
+    public IEnumerable<IRow> Rows
     {
-        get => [.. _rows.Values];
-        set => throw new NotImplementedException();
+        get => _rows.Values;
+        set
+        {
+            _rows.Clear();
+            foreach (var item in value.Pairs())
+            {
+                _rows.Add(item.Index, item.Value);
+            }
+        }
     }
     public IEnumerable<ICell> GetCells()
     {
