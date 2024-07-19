@@ -1,6 +1,4 @@
-﻿using NStandard;
-
-namespace Spread;
+﻿namespace Spread;
 
 internal class GridRender
 {

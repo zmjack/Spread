@@ -1,5 +1,4 @@
-﻿using NStandard;
-using Spread.Form.Columns;
+﻿using Spread.Form.Columns;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq.Expressions;
