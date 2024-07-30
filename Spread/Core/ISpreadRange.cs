@@ -6,10 +6,10 @@ namespace Spread;
 [JsonDerivedType(typeof(SpreadRange), nameof(SpreadRange))]
 public interface ISpreadRange
 {
-    ISpreadSheet Sheet { get; }
+    SpreadSheet Sheet { get; }
     Cursor Start { get; }
     Cursor End { get; }
 
-    IEnumerable<ICell> Cells { get; }
+    IEnumerable<Cell> Cells { get; }
     void Merge();
 }

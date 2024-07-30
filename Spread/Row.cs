@@ -7,9 +7,9 @@ namespace Spread;
 [Serializable]
 [DebuggerDisplay("{Name}")]
 [JsonAs<Row, IRowSerializable>]
-public class Row : IRow, IEnumerable<ICell>, IRowSerializable
+public class Row : IRow, IEnumerable<Cell>, IRowSerializable
 {
-    private readonly Dictionary<int, ICell> _innerCells = [];
+    private readonly Dictionary<int, Cell> _innerCells = [];
 
     internal readonly SpreadSheet _sheet;
     private readonly int _rowIndex;
@@ -28,7 +28,7 @@ public class Row : IRow, IEnumerable<ICell>, IRowSerializable
         _rowIndex = index;
     }
 
-    public IEnumerable<ICell> Cells
+    public IEnumerable<Cell> Cells
     {
         get
         {
@@ -40,11 +40,11 @@ public class Row : IRow, IEnumerable<ICell>, IRowSerializable
         }
     }
 
-    public ICell this[int index]
+    public Cell this[int index]
     {
         get
         {
-            if (_innerCells.TryGetValue(index, out ICell? value)) return value;
+            if (_innerCells.TryGetValue(index, out Cell? value)) return value;
             else
             {
                 var cell = new Cell(this, index);
@@ -55,7 +55,7 @@ public class Row : IRow, IEnumerable<ICell>, IRowSerializable
         }
     }
 
-    public IEnumerator<ICell> GetEnumerator()
+    public IEnumerator<Cell> GetEnumerator()
     {
         return Cells.GetEnumerator();
     }

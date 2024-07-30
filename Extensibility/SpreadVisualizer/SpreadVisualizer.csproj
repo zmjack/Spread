@@ -1,13 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="SpreadSheetVisualizer.xaml" />
-    <Page Remove="SpreadSheetVisualizer.xaml" />
+    <Content Include="..\SpreadVisualizerSource\bin\$(Configuration)\net7.0\SpreadVisualizerSource.dll" Link="netcoreapp\SpreadVisualizerSource.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -16,7 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Spread\Spread.csproj" />
+    <ProjectReference Include="..\..\Spread\Spread.csproj" />
+    <ProjectReference Include="..\SpreadVisualizerSource\SpreadVisualizerSource.csproj" />
   </ItemGroup>
 
 </Project>

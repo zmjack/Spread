@@ -6,13 +6,13 @@ namespace Spread;
 [JsonAs<SpreadSheet, ISpreadSheetSerializable>]
 public class SpreadSheet : ISpreadSheet, IEnumerable, ISpreadSheetSerializable
 {
-    public class RowAgent(SpreadSheet sheet) : IEnumerable<IRow>
+    public class RowAgent(SpreadSheet sheet) : IEnumerable<Row>
     {
-        public IRow this[int index]
+        public Row this[int index]
         {
             get
             {
-                if (sheet._rows.TryGetValue(index, out IRow? value)) return value;
+                if (sheet._rows.TryGetValue(index, out Row? value)) return value;
                 else
                 {
                     var row = new Row(sheet, index);
@@ -23,7 +23,7 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISpreadSheetSerializable
             }
         }
 
-        public IEnumerator<IRow> GetEnumerator()
+        public IEnumerator<Row> GetEnumerator()
         {
             return sheet._rows.Values.GetEnumerator();
         }
@@ -34,7 +34,7 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISpreadSheetSerializable
         }
     }
 
-    private readonly Dictionary<int, IRow> _rows = [];
+    private readonly Dictionary<int, Row> _rows = [];
     internal int _maxRowIndex = -1;
     internal int _maxColumnIndex = -1;
 
@@ -66,7 +66,7 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISpreadSheetSerializable
         Source = source;
     }
 
-    public IEnumerable<IRow> Rows
+    public IEnumerable<Row> Rows
     {
         get => _rows.Values;
         set
@@ -78,7 +78,7 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISpreadSheetSerializable
             }
         }
     }
-    public IEnumerable<ICell> GetCells()
+    public IEnumerable<Cell> GetCells()
     {
         foreach (var row in _rows.Values)
         {
@@ -91,9 +91,9 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISpreadSheetSerializable
         this[new Cursor(RowLength, 0)].Grid = grid;
     }
 
-    public IRow this[int row] => _rowSelector[row];
-    public ICell this[Cursor cursor] => _rowSelector[cursor.Row][cursor.Col];
-    public ISpreadRange this[Cursor start, Cursor end] => new SpreadRange(this, start, end);
+    public Row this[int row] => _rowSelector[row];
+    public Cell this[Cursor cursor] => _rowSelector[cursor.Row][cursor.Col];
+    public SpreadRange this[Cursor start, Cursor end] => new SpreadRange(this, start, end);
 
     public Grid this[int row, int col]
     {

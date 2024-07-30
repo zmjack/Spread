@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.Extensibility;
 
-namespace Spread.Extensibility;
+namespace SpreadVisualizer;
 
 /// <summary>
 /// Extension entrypoint for the VisualStudio.Extensibility extension.
@@ -15,9 +15,9 @@ internal class ExtensionEntrypoint : Extension
         Metadata = new(
                 id: "Spread.Extensibility.051b627e-650e-4a94-8298-352f33600817",
                 version: this.ExtensionAssemblyVersion,
-                publisherName: "Publisher name",
+                publisherName: "zmjack",
                 displayName: "Spread.Extensibility",
-                description: "Extension description"),
+                description: "Spread Extensibility Pack"),
     };
 
     /// <inheritdoc />

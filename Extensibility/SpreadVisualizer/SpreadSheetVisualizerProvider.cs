@@ -1,8 +1,10 @@
 ﻿using Microsoft.VisualStudio.Extensibility.DebuggerVisualizers;
 using Microsoft.VisualStudio.Extensibility;
 using Microsoft.VisualStudio.RpcContracts.RemoteUI;
+using Spread;
+using SpreadVisualizerSource;
 
-namespace Spread.Extensibility;
+namespace SpreadVisualizer;
 
 [VisualStudioContribution]
 internal class SpreadSheetVisualizerProvider : DebuggerVisualizerProvider
@@ -20,14 +22,19 @@ internal class SpreadSheetVisualizerProvider : DebuggerVisualizerProvider
     /// <inheritdoc/>
     public override DebuggerVisualizerProviderConfiguration DebuggerVisualizerProviderConfiguration
     {
-        get => new("SpreadSheet Visualizer", typeof(Simple));
+        get => new("SpreadSheet Visualizer", typeof(SpreadSheet))
+        {
+            Style = VisualizerStyle.ToolWindow,
+            VisualizerObjectSourceType = new(typeof(SpreadSheetSource))
+        };
     }
 
     /// <inheritdoc/>
     public override async Task<IRemoteUserControl> CreateVisualizerAsync(VisualizerTarget visualizerTarget, CancellationToken cancellationToken)
     {
-        var targetObjectValue = await visualizerTarget.ObjectSource.RequestDataAsync<Simple>(jsonSerializer: null, cancellationToken);
-
-        return new SpreadSheetVisualizer(targetObjectValue);
+        var data = await visualizerTarget.ObjectSource.RequestDataAsync(cancellationToken);
+        var json = data.ToString();
+        var target = System.Text.Json.JsonSerializer.Deserialize<HtmlWrapper>(json);
+        return new SpreadSheetVisualizer(target.Html);
     }
 }

@@ -6,7 +6,7 @@ public interface IRowSerializable
 {
     int Index { get; }
     string Name { get; }
-    IEnumerable<ICell> Cells { get; }
+    IEnumerable<Cell> Cells { get; }
 }
 
 [JsonImpl<IRow, Row>]
@@ -14,7 +14,7 @@ public interface IRow
 {
     int Index { get; }
     string Name { get; }
-    IEnumerable<ICell> Cells { get; }
+    IEnumerable<Cell> Cells { get; }
 
-    ICell this[int index] { get; }
+    Cell this[int index] { get; }
 }

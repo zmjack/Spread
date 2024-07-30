@@ -2,21 +2,21 @@
 
 public class SpreadRange : ISpreadRange
 {
-    public ISpreadSheet Sheet { get; private set; }
+    public SpreadSheet Sheet { get; private set; }
 
     internal Cursor _start;
     internal Cursor _end;
     public Cursor Start => _start;
     public Cursor End => _end;
 
-    internal SpreadRange(ISpreadSheet sheet, Cursor start, Cursor end)
+    internal SpreadRange(SpreadSheet sheet, Cursor start, Cursor end)
     {
         Sheet = sheet;
         _start = start;
         _end = end;
     }
 
-    public IEnumerable<ICell> Cells
+    public IEnumerable<Cell> Cells
     {
         get
         {

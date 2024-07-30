@@ -8,7 +8,7 @@ public interface ISpreadSheetSerializable
     string Name { get; set; }
     int RowLength { get; set; }
     int ColumnLength { get; set; }
-    IEnumerable<IRow> Rows { get; set; }
+    IEnumerable<Row> Rows { get; set; }
 }
 
 [JsonImpl<ISpreadSheet, SpreadSheet>]
@@ -18,11 +18,11 @@ public interface ISpreadSheet
     string Name { get; set; }
     int RowLength { get; set; }
     int ColumnLength { get; set; }
-    IEnumerable<IRow> Rows { get; set; }
+    IEnumerable<Row> Rows { get; set; }
 
-    IRow this[int row] { get; }
-    ICell this[Cursor cursor] { get; }
-    ISpreadRange this[Cursor start, Cursor end] { get; }
+    Row this[int row] { get; }
+    Cell this[Cursor cursor] { get; }
+    SpreadRange this[Cursor start, Cursor end] { get; }
 
     void Merge(Cursor start, Cursor end);
 }

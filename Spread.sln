@@ -18,11 +18,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spread", "Spread\Spread.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spread.Test", "Spread.Test\Spread.Test.csproj", "{DC6D17AB-88A7-416E-AEC6-0C016B454C21}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Visualizer", "Visualizer", "{32D73B29-19DD-466C-AC70-A3364CCB20F4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensibility", "Extensibility", "{8EBD1B95-B067-4772-842E-EA82279F5461}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spread.Core", "Spread.Core\Spread.Core.csproj", "{3B2E551A-363B-41A5-954A-01E56F32DEBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpreadVisualizer", "Extensibility\SpreadVisualizer\SpreadVisualizer.csproj", "{9B2DF586-08B1-4AF6-BD4E-8854609740E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spread.Extensibility", "Spread.Extensibility\Spread.Extensibility.csproj", "{92C35FE3-D9FB-4589-B20F-5706D6CBA234}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpreadVisualizerSource", "Extensibility\SpreadVisualizerSource\SpreadVisualizerSource.csproj", "{E25E299C-0780-4334-94F0-FDABF4A2D6DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,17 +48,23 @@ Global
 		{DC6D17AB-88A7-416E-AEC6-0C016B454C21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC6D17AB-88A7-416E-AEC6-0C016B454C21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC6D17AB-88A7-416E-AEC6-0C016B454C21}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3B2E551A-363B-41A5-954A-01E56F32DEBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3B2E551A-363B-41A5-954A-01E56F32DEBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3B2E551A-363B-41A5-954A-01E56F32DEBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3B2E551A-363B-41A5-954A-01E56F32DEBC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{92C35FE3-D9FB-4589-B20F-5706D6CBA234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92C35FE3-D9FB-4589-B20F-5706D6CBA234}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92C35FE3-D9FB-4589-B20F-5706D6CBA234}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92C35FE3-D9FB-4589-B20F-5706D6CBA234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B2DF586-08B1-4AF6-BD4E-8854609740E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B2DF586-08B1-4AF6-BD4E-8854609740E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B2DF586-08B1-4AF6-BD4E-8854609740E1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9B2DF586-08B1-4AF6-BD4E-8854609740E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B2DF586-08B1-4AF6-BD4E-8854609740E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B2DF586-08B1-4AF6-BD4E-8854609740E1}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{E25E299C-0780-4334-94F0-FDABF4A2D6DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E25E299C-0780-4334-94F0-FDABF4A2D6DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E25E299C-0780-4334-94F0-FDABF4A2D6DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E25E299C-0780-4334-94F0-FDABF4A2D6DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9B2DF586-08B1-4AF6-BD4E-8854609740E1} = {8EBD1B95-B067-4772-842E-EA82279F5461}
+		{E25E299C-0780-4334-94F0-FDABF4A2D6DC} = {8EBD1B95-B067-4772-842E-EA82279F5461}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E684925E-22C0-48ED-82B9-7B8CE5F1CCF1}
