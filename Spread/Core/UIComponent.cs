@@ -12,4 +12,5 @@ public static class UIComponent
     public static string Option => "option";
     public static string Image => "image";
     public static string FormTable => "form-table";
+    public static string Select => "select";
 }

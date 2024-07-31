@@ -4,7 +4,6 @@ using System.Diagnostics;
 
 namespace Spread;
 
-[Serializable]
 [DebuggerDisplay("{Name}")]
 [JsonAs<Row, IRowSerializable>]
 public class Row : IRow, IEnumerable<Cell>, IRowSerializable

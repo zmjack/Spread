@@ -12,12 +12,12 @@ public class Vert : Grid
         Scope = scope;
     }
 
-    public Vert(params ISpreadStyle[] styles) : this()
+    public Vert(params SpreadStyle[] styles) : this()
     {
         Styles = styles;
     }
 
-    public Vert(string scope, params ISpreadStyle[] styles) : this()
+    public Vert(string scope, params SpreadStyle[] styles) : this()
     {
         Scope = scope;
         Styles = styles;

@@ -35,9 +35,6 @@ public class GridTests
                 1, 2
             }
         };
-        var ss = (ISpreadSheet)sheet;
-
-        var s2s = ss.GetType().AssemblyQualifiedName;
         var html = new HtmlTable(sheet).ToHtml();
     }
 

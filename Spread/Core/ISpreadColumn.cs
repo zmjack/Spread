@@ -22,5 +22,5 @@ public interface ISpreadColumn
     string Type { get; }
     string DataIndex { get; set; }
     string Label { get; set; }
-    ISpreadRule? Rule { get; set; }
+    SpreadRule? Rule { get; set; }
 }

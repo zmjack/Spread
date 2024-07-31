@@ -12,7 +12,7 @@ public class SpreadLabel : ISpreadColumn
     public string? Label { get; set; }
 
     /// <inheritdoc />
-    public ISpreadRule? Rule { get; set; }
+    public SpreadRule? Rule { get; set; }
 
     public string Content { get; set; }
 

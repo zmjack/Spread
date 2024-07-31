@@ -13,7 +13,7 @@ public interface ICell
     int ColSpan { get; set; }
     int ColOffset { get; set; }
 
-    ISpreadStyle? Style { get; set; }
+    SpreadStyle? Style { get; set; }
     string? Comment { get; set; }
 
     public string? Scope { get; set; }

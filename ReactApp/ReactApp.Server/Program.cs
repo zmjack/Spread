@@ -1,5 +1,5 @@
 
-namespace WebApi
+namespace ReactApp.Server
 {
     public class Program
     {
@@ -16,6 +16,9 @@ namespace WebApi
 
             var app = builder.Build();
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -25,12 +28,10 @@ namespace WebApi
 
             app.UseAuthorization();
 
-            app.UseCors(options =>
-            {
-                options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
-            });
 
             app.MapControllers();
+
+            app.MapFallbackToFile("/index.html");
 
             app.Run();
         }

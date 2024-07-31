@@ -151,6 +151,18 @@ public partial class SpreadFormHelper<TEntity>
         };
     }
 
+    public SpreadSelect Select<T>(Expression<Func<TEntity, T>> selector, SpreadOptionValue[] options, SpreadRule? rule = null)
+    {
+        var pair = GetIndexPair(selector);
+        return new SpreadSelect
+        {
+            DataIndex = pair.DataIndex,
+            Label = pair.Label,
+            Rule = rule ?? GetDefaultRule(selector),
+            Options = options,
+        };
+    }
+
     public SpreadFormTable Table<T>(Expression<Func<TEntity, IEnumerable<T>>> selector, Func<SpreadFormHelper<T>, ISpreadColumn[]> columnSelector, SpreadFormTableSetting setting = SpreadFormTableSetting.None)
     {
         var pair = GetIndexPair(selector);

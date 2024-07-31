@@ -2,7 +2,6 @@
 
 namespace Spread;
 
-[Serializable]
 [DebuggerDisplay("{Name}: <{Scope}> {Text}")]
 public class Cell : ICell
 {
@@ -34,8 +33,8 @@ public class Cell : ICell
     public int ColSpan { get; set; } = 1;
     public int ColOffset { get; set; }
 
-    private ISpreadStyle? _style;
-    public ISpreadStyle? Style
+    private SpreadStyle? _style;
+    public SpreadStyle? Style
     {
         get => _style ?? SpreadStyle.Default;
         set => _style = value;

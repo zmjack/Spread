@@ -12,7 +12,7 @@ public class SpreadNumber : ISpreadColumn
     public string Label { get; set; }
 
     /// <inheritdoc />
-    public ISpreadRule? Rule { get; set; }
+    public SpreadRule? Rule { get; set; }
 
     public override string ToString()
     {

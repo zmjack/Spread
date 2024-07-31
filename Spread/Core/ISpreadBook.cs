@@ -7,7 +7,6 @@ public interface ISpreadBookSerializable
     SpreadSheet[] Sheets { get; set; }
 }
 
-[JsonImpl<ISpreadBook, SpreadBook>]
 public interface ISpreadBook
 {
     SpreadSheet[] Sheets { get; }

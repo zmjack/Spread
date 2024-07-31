@@ -21,7 +21,7 @@ public class SpreadFormTable : ISpreadColumn
     public string Label { get; set; }
 
     /// <inheritdoc />
-    public ISpreadRule? Rule { get; set; }
+    public SpreadRule? Rule { get; set; }
 
     public SpreadFormTableSetting Setting { get; set; }
 

@@ -9,7 +9,6 @@ public interface IRowSerializable
     IEnumerable<Cell> Cells { get; }
 }
 
-[JsonImpl<IRow, Row>]
 public interface IRow
 {
     int Index { get; }

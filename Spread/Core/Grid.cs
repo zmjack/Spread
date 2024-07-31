@@ -1,4 +1,5 @@
-﻿using Spread.Form;
+﻿using NStandard;
+using Spread.Form;
 using System.Collections;
 
 namespace Spread;
@@ -22,7 +23,7 @@ public abstract class Grid : IRenderUnit, IEnumerable<object>
 
     public string? Scope { get; set; }
 
-    public ISpreadStyle[]? Styles { get; protected set; }
+    public SpreadStyle[]? Styles { get; protected set; }
     public RenderDirection Direction { get; protected set; }
 
     private int _span;
@@ -46,74 +47,50 @@ public abstract class Grid : IRenderUnit, IEnumerable<object>
         return Children.GetEnumerator();
     }
 
-    private void Add(Grid value)
-    {
-        _objectList.Add(value);
-    }
-    private void Add(SpreadValue value)
-    {
-        _objectList.Add(value);
-    }
-    private void Add(ISpreadObject obj)
-    {
-        foreach (var value in obj.Values)
-        {
-            _objectList.Add(new SpreadValue(value));
-        }
-    }
-#if NET7_0_OR_GREATER
-    private void Add(ISpreadColumn formColumn)
-    {
-        _objectList.Add(new Hori(":input")
-        {
-            new SpreadValue(formColumn)
-        });
-    }
-#endif
-    private void Add(IEnumerable enumerable)
-    {
-        if (enumerable is string str)
-        {
-            _objectList.Add(new SpreadValue(str));
-        }
-        else
-        {
-            var enumerator = enumerable.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                Add(enumerator.Current);
-            }
-        }
-    }
     public void Add(object? obj)
     {
         if (obj is SpreadBlankValue) return;
 
         if (obj is Grid grid)
         {
-            Add(grid);
+            _objectList.Add(grid);
         }
-        else if (obj is SpreadValue value)
+        else if (obj is SpreadValue spvalue)
         {
-            Add(value);
+            _objectList.Add(spvalue);
         }
-        else if (obj is ISpreadObject spreadObject)
+        else if (obj is ISpreadObject spobj)
         {
-            Add(spreadObject);
+            foreach (var value in spobj.Values)
+            {
+                _objectList.Add(new SpreadValue(value));
+            }
         }
-#if NET7_0_OR_GREATER
         else if (obj is ISpreadColumn column)
         {
-            Add(column);
+            _objectList.Add(new Hori(":input")
+            {
+                new SpreadValue(column)
+            });
         }
-#endif
         else if (obj is not string && obj is IEnumerable enumerable)
         {
-            Add(enumerable);
+            if (enumerable is string str)
+            {
+                _objectList.Add(new SpreadValue(str));
+            }
+            else
+            {
+                var enumerator = enumerable.GetEnumerator();
+                while (enumerator.MoveNext())
+                {
+                    Add(enumerator.Current);
+                }
+            }
         }
         else
         {
-            Add(new SpreadValue(obj));
+            _objectList.Add(new SpreadValue(obj));
         }
     }
 }

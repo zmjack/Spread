@@ -1,4 +1,4 @@
-namespace WebApi
+namespace ReactApp.Server
 {
     public class WeatherForecast
     {

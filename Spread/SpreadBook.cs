@@ -4,14 +4,10 @@ using System.ComponentModel;
 using System.Text.Json;
 using System.Xml;
 using System.Runtime.Serialization;
-
-#if NET7_0_OR_GREATER
 using System.Diagnostics.CodeAnalysis;
-#endif
 
 namespace Spread;
 
-[Serializable]
 [JsonAs<SpreadBook, ISpreadBookSerializable>]
 public class SpreadBook : ISpreadBook, IEnumerable<ISpreadSheet>, ISpreadBookSerializable, ISerializable
 {
@@ -34,19 +30,14 @@ public class SpreadBook : ISpreadBook, IEnumerable<ISpreadSheet>, ISpreadBookSer
 
     [EditorBrowsable(EditorBrowsableState.Never)]
     [Obsolete("Devloping...")]
-    public static ISpreadBook Parse(
-#if NET7_0_OR_GREATER
-        [StringSyntax(StringSyntaxAttribute.Json)]
-#endif
-    string json
-    )
+    public static SpreadBook Parse([StringSyntax(StringSyntaxAttribute.Json)] string json)
     {
         return JsonSerializer.Deserialize<SpreadBook>(json)!;
     }
 
     [EditorBrowsable(EditorBrowsableState.Never)]
     [Obsolete("Devloping...")]
-    public static ISpreadBook Parse(XmlDocument doc)
+    public static SpreadBook Parse(XmlDocument doc)
     {
         return JsonSerializer.Deserialize<SpreadBook>(JsonXmlSerializer.SerializeXmlNode(doc))!;
     }

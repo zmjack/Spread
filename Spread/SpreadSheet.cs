@@ -93,7 +93,7 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISpreadSheetSerializable
 
     public Row this[int row] => _rowSelector[row];
     public Cell this[Cursor cursor] => _rowSelector[cursor.Row][cursor.Col];
-    public SpreadRange this[Cursor start, Cursor end] => new SpreadRange(this, start, end);
+    public SpreadRange this[Cursor start, Cursor end] => new(this, start, end);
 
     public Grid this[int row, int col]
     {

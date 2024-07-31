@@ -14,7 +14,7 @@ public class SpreadImage : ISpreadColumn
     public string Url { get; set; }
 
     /// <inheritdoc />
-    public ISpreadRule? Rule { get; set; }
+    public SpreadRule? Rule { get; set; }
 
     public override string ToString()
     {
