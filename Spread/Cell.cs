@@ -12,7 +12,12 @@ public class Cell : ICell
     public int ColIndex => _columnIndex.Value;
     public string Name => $"{_columnIndex.Name}{_row.Name}";
 
-    internal Cell(Row row, int index)
+    public Cell()
+    {
+
+    }
+
+    public Cell(Row row, int index)
     {
         _row = row;
         _columnIndex = new(index);

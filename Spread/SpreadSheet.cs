@@ -3,38 +3,9 @@ using System.Collections;
 
 namespace Spread;
 
-[JsonAs<SpreadSheet, ISpreadSheetSerializable>]
-public class SpreadSheet : ISpreadSheet, IEnumerable, ISpreadSheetSerializable
+public class SpreadSheet : ISpreadSheet, IEnumerable
 {
-    public class RowAgent(SpreadSheet sheet) : IEnumerable<Row>
-    {
-        public Row this[int index]
-        {
-            get
-            {
-                if (sheet._rows.TryGetValue(index, out Row? value)) return value;
-                else
-                {
-                    var row = new Row(sheet, index);
-                    sheet._rows.Add(index, row);
-                    if (sheet._maxRowIndex < index) sheet._maxRowIndex = index;
-                    return row;
-                }
-            }
-        }
-
-        public IEnumerator<Row> GetEnumerator()
-        {
-            return sheet._rows.Values.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return sheet._rows.Values.GetEnumerator();
-        }
-    }
-
-    private readonly Dictionary<int, Row> _rows = [];
+    private readonly Dictionary<int, IRow> _rows = [];
     internal int _maxRowIndex = -1;
     internal int _maxColumnIndex = -1;
 
@@ -49,13 +20,11 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISpreadSheetSerializable
         set => _maxColumnIndex = value - 1;
     }
 
-    private readonly RowAgent _rowSelector;
     public string Name { get; set; }
     public object? Source { get; set; }
 
     public SpreadSheet()
     {
-        _rowSelector = new RowAgent(this);
     }
     public SpreadSheet(string name) : this()
     {
@@ -66,7 +35,7 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISpreadSheetSerializable
         Source = source;
     }
 
-    public IEnumerable<Row> Rows
+    public IEnumerable<IRow> Rows
     {
         get => _rows.Values;
         set
@@ -78,11 +47,15 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISpreadSheetSerializable
             }
         }
     }
-    public IEnumerable<Cell> GetCells()
+
+    public IEnumerable<ICell> GetCells()
     {
         foreach (var row in _rows.Values)
         {
-            foreach (var cell in row.Cells) yield return cell;
+            foreach (var cell in row.Cells)
+            {
+                yield return cell;
+            }
         }
     }
 
@@ -91,9 +64,21 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISpreadSheetSerializable
         this[new Cursor(RowLength, 0)].Grid = grid;
     }
 
-    public Row this[int row] => _rowSelector[row];
-    public Cell this[Cursor cursor] => _rowSelector[cursor.Row][cursor.Col];
-    public SpreadRange this[Cursor start, Cursor end] => new(this, start, end);
+    private IRow GetRow(int index)
+    {
+        if (_rows.TryGetValue(index, out IRow? value)) return value;
+        else
+        {
+            var row = new Row(this, index);
+            _rows.Add(index, row);
+            if (_maxRowIndex < index) _maxRowIndex = index;
+            return row;
+        }
+    }
+
+    public IRow this[int row] => GetRow(row);
+    public ICell this[Cursor cursor] => GetRow(cursor.Row)[cursor.Col];
+    public IRange this[Cursor start, Cursor end] => new Range(this, start, end);
 
     public Grid this[int row, int col]
     {
@@ -102,7 +87,7 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISpreadSheetSerializable
 
     public void Merge(Cursor start, Cursor end)
     {
-        if (start == end) throw new InvalidOperationException("Can not merge a single cell.");
+        if (start == end) throw new InvalidOperationException("Unable to merge individual cells.");
 
         var rowSpan = end.Row - start.Row + 1;
         var colSpan = end.Col - start.Col + 1;
@@ -162,7 +147,7 @@ public class SpreadSheet : ISpreadSheet, IEnumerable, ISpreadSheetSerializable
         }
     }
 
-    public IEnumerator GetEnumerator()
+    IEnumerator IEnumerable.GetEnumerator()
     {
         return _rows.Values.GetEnumerator();
     }

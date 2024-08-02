@@ -5,10 +5,9 @@ using System.Diagnostics;
 namespace Spread;
 
 [DebuggerDisplay("{Name}")]
-[JsonAs<Row, IRowSerializable>]
-public class Row : IRow, IEnumerable<Cell>, IRowSerializable
+public class Row : IRow
 {
-    private readonly Dictionary<int, Cell> _innerCells = [];
+    private readonly Dictionary<int, ICell> _innerCells = [];
 
     internal readonly SpreadSheet _sheet;
     private readonly int _rowIndex;
@@ -18,7 +17,6 @@ public class Row : IRow, IEnumerable<Cell>, IRowSerializable
 
     public Row()
     {
-        throw new NotImplementedException();
     }
 
     internal Row(SpreadSheet sheet, int index)
@@ -27,7 +25,7 @@ public class Row : IRow, IEnumerable<Cell>, IRowSerializable
         _rowIndex = index;
     }
 
-    public IEnumerable<Cell> Cells
+    public IEnumerable<ICell> Cells
     {
         get
         {
@@ -39,11 +37,11 @@ public class Row : IRow, IEnumerable<Cell>, IRowSerializable
         }
     }
 
-    public Cell this[int index]
+    public ICell this[int index]
     {
         get
         {
-            if (_innerCells.TryGetValue(index, out Cell? value)) return value;
+            if (_innerCells.TryGetValue(index, out ICell? value)) return value;
             else
             {
                 var cell = new Cell(this, index);
@@ -52,15 +50,5 @@ public class Row : IRow, IEnumerable<Cell>, IRowSerializable
                 return cell;
             }
         }
-    }
-
-    public IEnumerator<Cell> GetEnumerator()
-    {
-        return Cells.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return Cells.GetEnumerator();
     }
 }

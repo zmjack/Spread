@@ -17,7 +17,7 @@ public class SpreadSheetController : Controller
     }
 
     [HttpGet]
-    public SpreadSheet Sheet1()
+    public ISpreadSheet Sheet1()
     {
         var context = new NorthwndMemoryContext().IncludeAll();
         var content = SpreadStyle.Default with
@@ -32,7 +32,7 @@ public class SpreadSheetController : Controller
                 new Hori(content with
                 {
                     Bold = true,
-                    BackgroundColor = new RgbaColor(0x61AFFE),
+                    BackgroundColor = new(0x61AFFE),
                 })
                 {
                     "Category", "Product",

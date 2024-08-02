@@ -1,22 +1,22 @@
 ﻿namespace Spread;
 
-public class SpreadRange : ISpreadRange
+public class Range : IRange
 {
-    public SpreadSheet Sheet { get; private set; }
+    public ISpreadSheet Sheet { get; private set; }
 
     internal Cursor _start;
     internal Cursor _end;
     public Cursor Start => _start;
     public Cursor End => _end;
 
-    internal SpreadRange(SpreadSheet sheet, Cursor start, Cursor end)
+    internal Range(ISpreadSheet sheet, Cursor start, Cursor end)
     {
         Sheet = sheet;
         _start = start;
         _end = end;
     }
 
-    public IEnumerable<Cell> Cells
+    public IEnumerable<ICell> Cells
     {
         get
         {
@@ -32,15 +32,15 @@ public class SpreadRange : ISpreadRange
 
     public void Merge() => Sheet.Merge(_start, _end);
 
-    public SpreadRange Row(int index)
+    public Range Row(int index)
     {
         var row = Start.Row + index;
-        return new SpreadRange(Sheet, new(row, Start.Col), new(row, End.Col));
+        return new Range(Sheet, new(row, Start.Col), new(row, End.Col));
     }
 
-    public SpreadRange Column(int index)
+    public Range Column(int index)
     {
         var col = Start.Col + index;
-        return new SpreadRange(Sheet, new(Start.Row, col), new(End.Row, col));
+        return new Range(Sheet, new(Start.Row, col), new(End.Row, col));
     }
 }

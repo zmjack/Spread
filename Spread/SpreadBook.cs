@@ -8,13 +8,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Spread;
 
-[JsonAs<SpreadBook, ISpreadBookSerializable>]
-public class SpreadBook : ISpreadBook, IEnumerable<ISpreadSheet>, ISpreadBookSerializable, ISerializable
+public class SpreadBook : ISpreadBook, IEnumerable
 {
-    private readonly Dictionary<string, SpreadSheet> _sheets = [];
-    public SpreadSheet[] Sheets => [.. _sheets.Values];
+    private readonly Dictionary<string, ISpreadSheet> _sheets = [];
 
-    SpreadSheet[] ISpreadBookSerializable.Sheets
+    public ISpreadSheet[] Sheets
     {
         get => [.. _sheets.Values];
         set
@@ -26,7 +24,7 @@ public class SpreadBook : ISpreadBook, IEnumerable<ISpreadSheet>, ISpreadBookSer
         }
     }
 
-    public SpreadSheet this[string name] => _sheets[name];
+    public ISpreadSheet this[string name] => _sheets[name];
 
     [EditorBrowsable(EditorBrowsableState.Never)]
     [Obsolete("Devloping...")]
@@ -42,12 +40,12 @@ public class SpreadBook : ISpreadBook, IEnumerable<ISpreadSheet>, ISpreadBookSer
         return JsonSerializer.Deserialize<SpreadBook>(JsonXmlSerializer.SerializeXmlNode(doc))!;
     }
 
-    public void Add(SpreadSheet sheet)
+    public void Add(ISpreadSheet sheet)
     {
         _sheets.Add(sheet.Name, sheet);
     }
 
-    public void Add(IEnumerable<SpreadSheet> sheets)
+    public void Add(IEnumerable<ISpreadSheet> sheets)
     {
         foreach (var sheet in sheets)
         {
@@ -55,19 +53,9 @@ public class SpreadBook : ISpreadBook, IEnumerable<ISpreadSheet>, ISpreadBookSer
         }
     }
 
-    public IEnumerator<ISpreadSheet> GetEnumerator()
-    {
-        return _sheets.Values.GetEnumerator();
-    }
-
     IEnumerator IEnumerable.GetEnumerator()
     {
-        return _sheets.GetEnumerator();
-    }
-
-    public void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        info.AddValue("info", info);
+        return _sheets.Values.GetEnumerator();
     }
 }
 

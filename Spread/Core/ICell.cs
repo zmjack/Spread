@@ -1,5 +1,10 @@
-﻿namespace Spread;
+﻿using NStandard.Text.Json;
+using System.Text.Json.Serialization;
 
+namespace Spread;
+
+[JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
+[JsonDerivedType(typeof(Cell), nameof(Cell))]
 public interface ICell
 {
     int RowIndex { get; }

@@ -6,6 +6,6 @@ public interface ISpreadTable
 {
     object? Source { get; set; }
     ISpreadColumn[] Columns { get; set; }
-    SpreadSheet[] Expand { get; set; }
+    ISpreadSheet[] Expand { get; set; }
     SpreadPagination Pagination { get; set; }
 }

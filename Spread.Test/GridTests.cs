@@ -55,32 +55,15 @@ public class GridTests
                         new Hori { "a" },
                         new Hori { "b", new Vert { 1, 2 } },
                     },
-                    new Vert
-                    {
-                        "d",
-                        "e",
-                    },
-                    new Vert
-                    {
-                        "e",
-                    },
+                    new Vert { "d", "e" },
+                    new Vert { "e" },
                     "f",
-                    new Vert
-                    {
-                        "11",
-                        "22",
-                        "33",
-                        "44",
-                    },
+                    new Vert { "11", "22", "33", "44" },
                 },
                 new Hori()
                 {
                     "A",
-                    new Vert
-                    {
-                        "d",
-                        "e",
-                    },
+                    new Vert { "d", "e" },
                 },
                 new Hori()
                 {
@@ -90,8 +73,7 @@ public class GridTests
                         SpreadStyle.Table with { BackgroundColor = new RgbaColor(0x0000ff) },
                     ])
                     {
-                        "d",
-                        "e",
+                        "d", "e",
                     },
                 },
             }

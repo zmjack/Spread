@@ -1,19 +1,15 @@
 ﻿using NStandard.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Spread;
 
-public interface IRowSerializable
-{
-    int Index { get; }
-    string Name { get; }
-    IEnumerable<Cell> Cells { get; }
-}
-
+[JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
+[JsonDerivedType(typeof(Row), nameof(Row))]
 public interface IRow
 {
     int Index { get; }
     string Name { get; }
-    IEnumerable<Cell> Cells { get; }
+    IEnumerable<ICell> Cells { get; }
 
-    Cell this[int index] { get; }
+    ICell this[int index] { get; }
 }

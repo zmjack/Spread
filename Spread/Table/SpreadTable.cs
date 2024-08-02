@@ -6,6 +6,6 @@ public class SpreadTable(object? source) : ISpreadTable
 {
     public object? Source { get; set; } = source;
     public ISpreadColumn[] Columns { get; set; }
-    public SpreadSheet[] Expand { get; set; }
+    public ISpreadSheet[] Expand { get; set; }
     public SpreadPagination Pagination { get; set; }
 }
