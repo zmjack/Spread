@@ -1,10 +1,5 @@
-﻿using NStandard.Text.Json;
-using System.Text.Json.Serialization;
+﻿namespace Spread;
 
-namespace Spread;
-
-[JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
-[JsonDerivedType(typeof(SpreadSheet), nameof(SpreadSheet))]
 public interface ISpreadSheet
 {
     object? Source { get; set; }

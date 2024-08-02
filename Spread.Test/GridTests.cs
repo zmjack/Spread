@@ -35,6 +35,7 @@ public class GridTests
                 1, 2
             }
         };
+        var json = System.Text.Json.JsonSerializer.Serialize(sheet as ISpreadSheet);
         var html = new HtmlTable(sheet).ToHtml();
     }
 
