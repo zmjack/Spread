@@ -21,4 +21,8 @@
     <ProjectReference Include="..\SpreadVisualizerSource\SpreadVisualizerSource.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="internal\" />
+  </ItemGroup>
+
 </Project>

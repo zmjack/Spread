@@ -1,6 +1,4 @@
-﻿using NStandard.Text.Json;
-
-namespace Spread;
+﻿namespace Spread;
 
 public interface ISpreadBook
 {

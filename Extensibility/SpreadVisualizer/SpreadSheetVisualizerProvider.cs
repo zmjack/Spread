@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.Extensibility;
 using Microsoft.VisualStudio.RpcContracts.RemoteUI;
 using Spread;
 using SpreadVisualizerSource;
+using System.Text.Json;
 
 namespace SpreadVisualizer;
 
@@ -34,7 +35,7 @@ internal class SpreadSheetVisualizerProvider : DebuggerVisualizerProvider
     {
         var data = await visualizerTarget.ObjectSource.RequestDataAsync(cancellationToken);
         var json = data.ToString();
-        var target = System.Text.Json.JsonSerializer.Deserialize<HtmlWrapper>(json);
-        return new SpreadSheetVisualizer(target.Html);
+        var target = JsonSerializer.Deserialize<HtmlWrapper>(json);
+        return new HtmlUserControl(target.Html);
     }
 }

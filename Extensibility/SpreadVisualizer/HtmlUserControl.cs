@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 namespace SpreadVisualizer;
 
-public class SpreadSheetVisualizer : RemoteUserControl
+public class HtmlUserControl : RemoteUserControl
 {
     [DataContract]
     internal class Data
@@ -28,7 +28,7 @@ $"""
 """);
     }
 
-    public SpreadSheetVisualizer(string value) : base(dataContext: new Data
+    public HtmlUserControl(string value) : base(dataContext: new Data
     {
     })
     {

@@ -1,5 +1,4 @@
-﻿using NStandard;
-using Spread.Form;
+﻿using Spread.Form;
 using System.Collections;
 
 namespace Spread;
