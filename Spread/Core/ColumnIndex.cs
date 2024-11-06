@@ -10,14 +10,14 @@ public struct ColumnIndex
     /// <summary>
     /// Gets the number of letter. It's start at 0. (For example, "A" is 0).
     /// </summary>
-    /// <param name="letter"></param>
+    /// <param name="name"></param>
     /// <returns></returns>
     public static int GetIndex(string name)
     {
         int row = 0;
         foreach (int ch in name)
         {
-            if (ch is < 'A' or > 'Z') throw new ArgumentException("Invalid row text.", nameof(name));
+            if (ch is < 'A' or > 'Z') throw new ArgumentException("Invalid column text.", nameof(name));
             row = row * RADIX + ch - 'A' + 1;
         }
         return row - 1;
@@ -32,7 +32,7 @@ public struct ColumnIndex
     {
         var stack = new Stack<char>(10);
 
-        if (index < 0) throw new ArgumentException("Invalid row index.", nameof(index));
+        if (index < 0) throw new ArgumentException("Invalid column index.", nameof(index));
 
         stack.Push((char)(index % RADIX + 'A'));
         index /= RADIX;

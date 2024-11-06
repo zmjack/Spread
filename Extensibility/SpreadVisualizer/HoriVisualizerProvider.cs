@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.Extensibility.DebuggerVisualizers;
-using Microsoft.VisualStudio.Extensibility;
+﻿using Microsoft.VisualStudio.Extensibility;
+using Microsoft.VisualStudio.Extensibility.DebuggerVisualizers;
 using Microsoft.VisualStudio.RpcContracts.RemoteUI;
 using Spread;
 using SpreadVisualizerSource;

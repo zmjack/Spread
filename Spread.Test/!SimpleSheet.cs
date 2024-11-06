@@ -1,6 +1,4 @@
-﻿using NStandard.Drawing;
-
-namespace Spread.Test;
+﻿namespace Spread.Test;
 
 public static class SimpleSheet
 {

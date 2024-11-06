@@ -17,11 +17,12 @@ public interface ISpreadStyle
     RgbaColor? Color { get; set; }
     string? FontFamily { get; set; }
     int? FontSize { get; set; }
+
     string? Format { get; set; }
+    int? Round { get; set; }
+
     HoriAlign? HoriAlign { get; set; }
     bool IsHeadCell { get; set; }
     int? Padding { get; set; }
     VertAlign? VertAlign { get; set; }
-
-    string? FormatValue(object? value);
 }

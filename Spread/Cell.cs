@@ -50,6 +50,52 @@ public class Cell : ICell
     public object? Source { get; set; }
     public object? Value { get; set; }
 
+    public object? StyledValue
+    {
+        get
+        {
+            if (Value is null) return null;
+            if (Style is null) return Value;
+            if (!Style.Round.HasValue) return Value;
+
+            var round = Style.Round.Value;
+            var value = Value;
+            if (value is float f) return float.Round(f, round);
+            if (value is double d) return double.Round(d, round);
+            if (value is decimal dec) return decimal.Round(dec, round);
+            return value;
+        }
+    }
+
+    public string? Text
+    {
+        get
+        {
+            var value = StyledValue;
+
+            if (value is null) return null;
+            if (Style is null) return value.ToString();
+
+            var format = Style.Format;
+            if (format is null) return value.ToString();
+
+            return value switch
+            {
+                short v => v.ToString(format),
+                int v => v.ToString(format),
+                long v => v.ToString(format),
+                ushort v => v.ToString(format),
+                uint v => v.ToString(format),
+                ulong v => v.ToString(format),
+                DateTime v => v.ToString(format),
+                float v => v.ToString(format),
+                double v => v.ToString(format),
+                decimal v => v.ToString(format),
+                _ => value.ToString(),
+            };
+        }
+    }
+
     public SpreadValue SpreadValue
     {
         set
@@ -66,17 +112,6 @@ public class Cell : ICell
         {
             var render = new GridRender(value);
             render.Render(_row._sheet, new(_row.Index, ColIndex));
-        }
-    }
-
-    public string? Text
-    {
-        get
-        {
-            if (Value is null) return null;
-            if (Style is not null) return Style.FormatValue(Value);
-
-            return Value.ToString();
         }
     }
 

@@ -23,6 +23,7 @@ public interface ICell
     public string? Scope { get; set; }
     public object? Source { get; set; }
     object? Value { get; set; }
+    object? StyledValue { get; }
     SpreadValue SpreadValue { set; }
     string? Text { get; }
     Grid Grid { set; }

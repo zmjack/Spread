@@ -1,4 +1,4 @@
-using BaoheErp;
+using Seven;
 using System.Text.Encodings.Web;
 using System.Text.Json.Serialization;
 using System.Text.Unicode;

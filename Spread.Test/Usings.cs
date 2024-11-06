@@ -1,2 +1,1 @@
-﻿global using NStandard;
-global using NStandard.Drawing;
+﻿global using NStandard.Drawing;
