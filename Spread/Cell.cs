@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using NStandard;
+using System.Diagnostics;
 
 namespace Spread;
 
@@ -67,51 +68,58 @@ public class Cell : ICell
         }
     }
 
+    private const string THOUSAND_FORMAT = "#,##0";
+
+    public string? Format
+    {
+        get
+        {
+            if (Style is null) return null;
+
+            var value = Value;
+            var thousandSeparator = Style.ThousandSeparator;
+            if (thousandSeparator is true)
+            {
+                var isNumber = false;
+                if (value is float f)
+                {
+                    if (float.IsInteger(f)) return THOUSAND_FORMAT;
+                    isNumber = true;
+                }
+                if (value is double d)
+                {
+                    if (double.IsInteger(d)) return THOUSAND_FORMAT;
+                    isNumber = true;
+                }
+                if (value is decimal dec)
+                {
+                    if (decimal.IsInteger(dec)) return THOUSAND_FORMAT;
+                    isNumber = true;
+                }
+
+                if (isNumber)
+                {
+                    if (!Style.Round.HasValue) return THOUSAND_FORMAT;
+
+                    var round = Style.Round.Value;
+                    if (round == 0) return THOUSAND_FORMAT;
+
+                    return $"#,##0.{"#".Repeat(round)}";
+                }
+            }
+
+            return Style.Format;
+        }
+    }
+
     public string? Text
     {
         get
         {
             var value = StyledValue;
-
             if (value is null) return null;
-            if (Style is null) return value.ToString();
 
-            var thousandSeparator = Style.ThousandSeparator;
-            if (thousandSeparator is true)
-            {
-                if (value is float f)
-                {
-                    if (float.IsInteger(f)) return f.ToString("#,##0");
-                    if (!Style.Round.HasValue) return f.ToString("#,##0");
-
-                    var round = Style.Round.Value;
-                    if (round == 0) return f.ToString("#,##0");
-
-                    return f.ToString($"#,##0.{"#".Repeat(round)}");
-                }
-                if (value is double d)
-                {
-                    if (double.IsInteger(d)) return d.ToString("#,##0");
-                    if (!Style.Round.HasValue) return d.ToString("#,##0");
-
-                    var round = Style.Round.Value;
-                    if (round == 0) return d.ToString("#,##0");
-
-                    return d.ToString($"#,##0.{"#".Repeat(round)}");
-                }
-                if (value is decimal dec)
-                {
-                    if (decimal.IsInteger(dec)) return dec.ToString("#,##0");
-                    if (!Style.Round.HasValue) return dec.ToString("#,##0");
-
-                    var round = Style.Round.Value;
-                    if (round == 0) return dec.ToString("#,##0");
-
-                    return dec.ToString($"#,##0.{"#".Repeat(round)}");
-                }
-            }
-
-            var format = Style.Format;
+            var format = Format;
             if (format is null) return value.ToString();
 
             return value switch
