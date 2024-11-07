@@ -76,6 +76,41 @@ public class Cell : ICell
             if (value is null) return null;
             if (Style is null) return value.ToString();
 
+            var thousandSeparator = Style.ThousandSeparator;
+            if (thousandSeparator is true)
+            {
+                if (value is float f)
+                {
+                    if (float.IsInteger(f)) return f.ToString("#,##0");
+                    if (!Style.Round.HasValue) return f.ToString("#,##0");
+
+                    var round = Style.Round.Value;
+                    if (round == 0) return f.ToString("#,##0");
+
+                    return f.ToString($"#,##0.{"#".Repeat(round)}");
+                }
+                if (value is double d)
+                {
+                    if (double.IsInteger(d)) return d.ToString("#,##0");
+                    if (!Style.Round.HasValue) return d.ToString("#,##0");
+
+                    var round = Style.Round.Value;
+                    if (round == 0) return d.ToString("#,##0");
+
+                    return d.ToString($"#,##0.{"#".Repeat(round)}");
+                }
+                if (value is decimal dec)
+                {
+                    if (decimal.IsInteger(dec)) return dec.ToString("#,##0");
+                    if (!Style.Round.HasValue) return dec.ToString("#,##0");
+
+                    var round = Style.Round.Value;
+                    if (round == 0) return dec.ToString("#,##0");
+
+                    return dec.ToString($"#,##0.{"#".Repeat(round)}");
+                }
+            }
+
             var format = Style.Format;
             if (format is null) return value.ToString();
 

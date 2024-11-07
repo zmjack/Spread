@@ -18,8 +18,9 @@ public interface ISpreadStyle
     string? FontFamily { get; set; }
     int? FontSize { get; set; }
 
-    string? Format { get; set; }
     int? Round { get; set; }
+    bool? ThousandSeparator { get; set; }
+    string? Format { get; set; }
 
     HoriAlign? HoriAlign { get; set; }
     bool IsHeadCell { get; set; }

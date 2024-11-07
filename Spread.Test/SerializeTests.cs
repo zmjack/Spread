@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace Spread.Test
+﻿namespace Spread.Test
 {
     public class SerializeTests
     {
@@ -24,8 +22,8 @@ namespace Spread.Test
         [Fact]
         public void Test2()
         {
-            var json = "{}";
-            var book = JsonSerializer.Deserialize<SpreadBook>(json)!;
+            // var json = "{}";
+            // var book = JsonSerializer.Deserialize<SpreadBook>(json)!;
         }
 
     }

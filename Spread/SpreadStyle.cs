@@ -70,6 +70,21 @@ public record SpreadStyle : ISpreadStyle
         }
     }
 
+    private int? _round;
+    public int? Round
+    {
+        get => _round;
+        set
+        {
+            if (value is null) _round = value;
+            else
+            {
+                if (value < 0) throw new ArgumentException("The value can not be less then 0.", nameof(Round));
+                if (value > 30) throw new ArgumentException("The value can not be greater then 30.", nameof(Round));
+                _round = value;
+            }
+        }
+    }
+    public bool? ThousandSeparator { get; set; }
     public string? Format { get; set; }
-    public int? Round { get; set; }
 }
