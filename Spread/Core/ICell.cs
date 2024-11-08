@@ -25,6 +25,8 @@ public interface ICell
     object? Value { get; set; }
     object? StyledValue { get; }
     SpreadValue SpreadValue { set; }
+
+    string? Format { get; }
     string? Text { get; }
     Grid Grid { set; }
 }
