@@ -21,6 +21,33 @@ public class GridTests
     };
 
     [Fact]
+    public void TmpTest()
+    {
+        var sheet = new SpreadSheet("Simple")
+        {
+            new Vert(SpreadStyle.Table)
+            {
+                new Hori
+                {
+                    "1", "2", "3"
+                },
+
+                new Hori
+                {
+                    new Hori()
+                    {
+                        new SpreadValue("")
+                        {
+                            ColSpan = 1
+                        },
+                    },
+                    "123",
+                }
+            }
+        };
+    }
+
+    [Fact]
     public void NumberTest()
     {
         var sheet = new SpreadSheet("Sheet1")

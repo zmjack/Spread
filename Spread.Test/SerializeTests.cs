@@ -1,4 +1,6 @@
-﻿namespace Spread.Test
+﻿using System.Text.Json;
+
+namespace Spread.Test
 {
     public class SerializeTests
     {
@@ -17,13 +19,6 @@
 
             //var _book = SpreadBook.Parse(json);
             //var _html = new HtmlTable(_book["Grid"]).ToHtml();
-        }
-
-        [Fact]
-        public void Test2()
-        {
-            // var json = "{}";
-            // var book = JsonSerializer.Deserialize<SpreadBook>(json)!;
         }
 
     }

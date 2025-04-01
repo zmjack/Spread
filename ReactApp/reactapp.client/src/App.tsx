@@ -47,7 +47,7 @@ function App() {
     );
 
     async function populateWeatherData() {
-        const response = await fetch('spreadsheet/sheet1');
+        const response = await fetch('weatherforecast');
         const data = await response.json();
         setForecasts(data);
     }
