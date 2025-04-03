@@ -1,4 +1,5 @@
-﻿using Spread.Form.Columns;
+﻿using NStandard.Static;
+using Spread.Form.Columns;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq.Expressions;
@@ -72,7 +73,7 @@ public partial class SpreadFormHelper<TEntity>
         {
             "System.Runtime.CompilerServices.RequiredMemberAttribute",
             "System.ComponentModel.DataAnnotations.RequiredAttribute",
-        }.Contains(name) || (propertyType.IsValueType && !propertyType.IsNullable()));
+        }.Contains(name) || (propertyType.IsValueType && !propertyType.IsNullableValue()));
 
         return new SpreadRule
         {
