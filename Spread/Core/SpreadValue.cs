@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using NStandard.Design;
+using System.Diagnostics;
 
 namespace Spread;
 

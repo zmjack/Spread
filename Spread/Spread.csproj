@@ -8,7 +8,7 @@
     <Authors>zmjack</Authors>
     <Company>linqsharp.net</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.2.1</Version>
+    <Version>0.2.2</Version>
     <Description>Smart spreadsheet creation library.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/zmjack/Spread</RepositoryUrl>
@@ -38,7 +38,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.2" />
-    <PackageReference Include="NStandard" Version="0.90.0" />
+	<PackageReference Include="NStandard" Version="[0.100.0,0.110.0)" />
   </ItemGroup>
 
   <ItemGroup>
