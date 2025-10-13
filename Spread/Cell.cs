@@ -41,7 +41,7 @@ public class Cell : ICell
     private SpreadStyle? _style;
     public SpreadStyle? Style
     {
-        get => _style ?? SpreadStyle.Default;
+        get => _style;
         set => _style = value;
     }
     public string? Comment { get; set; }
