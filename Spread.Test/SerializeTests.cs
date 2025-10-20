@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace Spread.Test
+﻿namespace Spread.Test
 {
     public class SerializeTests
     {

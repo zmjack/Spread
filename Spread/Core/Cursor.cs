@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 namespace Spread;
 
 [DebuggerDisplay("{Row}, {Col}")]
-public partial struct Cursor
+public partial struct Cursor : IComparable<Cursor>
 {
     [GeneratedRegex("^([A-Z]+)(\\d+)$")]
     private static partial Regex LetterRegex();
@@ -72,5 +72,11 @@ public partial struct Cursor
     {
         if (obj is Cursor other) return Row == other.Row && Col == other.Col;
         return false;
+    }
+
+    public int CompareTo(Cursor other)
+    {
+        if (Row != other.Row) return Row.CompareTo(other.Row);
+        return Col.CompareTo(other.Col);
     }
 }
