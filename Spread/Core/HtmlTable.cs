@@ -115,7 +115,7 @@ public class HtmlTable
         if (style.BackgroundColor is not null) dict["background-color"] = Json(style.BackgroundColor);
         if (style.Color is not null) dict["color"] = Json(style.Color);
         if (style.FontFamily is not null) dict["font-family"] = $"{style.FontFamily}";
-        if (style.FontSize.HasValue) dict["font-size"] = $"{style.FontSize}px";
+        if (style.FontSize.HasValue) dict["font-size"] = $"{style.FontSize}pt";
         if (style.Bold.HasValue && style.Bold.Value) dict["font-weight"] = "bold";
         if (style.BorderTop.HasValue && style.BorderTop.Value) dict["border-top"] = "1px solid #000000";
         if (style.BorderBottom.HasValue && style.BorderBottom.Value) dict["border-bottom"] = "1px solid #000000";
