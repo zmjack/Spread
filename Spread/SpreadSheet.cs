@@ -63,6 +63,14 @@ public class SpreadSheet : ISpreadSheet, IEnumerable
         this[new Cursor(RowLength, 0)].Grid = grid;
     }
 
+    public void Add(object? obj)
+    {
+        this[new Cursor(RowLength, 0)].Grid = new Vert
+        {
+            obj
+        };
+    }
+
     private IRow GetRow(int index)
     {
         if (_rows.TryGetValue(index, out IRow? value)) return value;

@@ -25,6 +25,8 @@ public class GridTests
     {
         var sheet = new SpreadSheet("Simple")
         {
+            "Title",
+
             new Vert(SpreadStyle.Table)
             {
                 new Hori
